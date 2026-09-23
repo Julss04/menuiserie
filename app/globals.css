@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/*
+ * Charte graphique L'Annexe (variant Tri-Marrant, mai 2026).
+ * Couleurs de brand : Bleu #2f818e (prioritaire), Jaune canard #efb023,
+ * Orange couchant #ff6542, Beige #fff1d7 (fond, sans dégradé).
+ * Les dégradés viennent de la page « Palette de couleurs » de la charte.
+ */
+@theme {
+  --color-bleu-900: #236e76;
+  --color-bleu: #2f818e;
+  --color-bleu-600: #3899a8;
+  --color-bleu-500: #3da7b8;
+  --color-bleu-400: #65c3cd;
+  --color-bleu-300: #93d5dc;
+  --color-bleu-200: #c2e7eb;
+  --color-bleu-100: #eaf6f6;
+
+  --color-jaune-900: #e29f2c;
+  --color-jaune: #efb023;
+  --color-jaune-600: #f2c054;
+  --color-jaune-500: #f5ce7a;
+  --color-jaune-400: #f8dca0;
+  --color-jaune-300: #f9e3b3;
+  --color-jaune-200: #fceac5;
+  --color-jaune-100: #fff6e7;
+
+  --color-orange-900: #f15838;
+  --color-orange: #ff6542;
+  --color-orange-600: #ff7a5c;
+  --color-orange-500: #ff8a70;
+  --color-orange-400: #ff9d85;
+  --color-orange-300: #ffbead;
+  --color-orange-200: #ffded6;
+  --color-orange-100: #fee8e2;
+
+  --color-beige: #fff1d7;
+  --color-encre: #404041;
+
+  --font-titre: var(--font-noto-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-texte: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-beige);
+    color: var(--color-encre);
+    font-family: var(--font-texte);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-titre);
+    font-weight: 700;
+    color: var(--color-bleu-900);
+  }
+
+  ::selection {
+    background: var(--color-jaune);
+    color: var(--color-encre);
+  }
+
+  input,
+  select,
+  textarea {
+    caret-color: var(--color-bleu);
+    accent-color: var(--color-bleu);
+  }
+
+  html {
+    scrollbar-color: var(--color-bleu) var(--color-beige);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-jaune);
+    outline-offset: 2px;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
