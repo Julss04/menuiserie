@@ -31,7 +31,7 @@ Fixed weekly opening hours (not by-appointment-only): Mercredi 10h–12h/14h–1
 
 ## Brand Commitments
 
-Name is confirmed: "L'Annexe". Visual direction confirmed by the user: light/éco-moderne palette — cream/off-white background, dark text, sage green and Atlantic blue accents (evoking Granville and the circular economy). No logo or other brand assets on hand yet.
+Name is confirmed: "L'Annexe", the Granville variant of the Tri-Marrant logo. The Tri-Marrant graphic charter (May 2026, pages on the L'Annexe variant, colors and typography) is the visual authority: Bleu #2f818e first, with Jaune canard #efb023, Orange couchant #ff6542 and Beige #fff1d7 (background, no gradient), each color with the charter's own tints; Noto Sans Bold for headings, Open Sans for text. The L'Annexe logo ships as vector files in `public/brand/` (color on light grounds, white on blue) and must not be modified, never shown under 25 px tall, and keeps its clear space. No bike photos on hand yet: the site uses drawn illustrations in the charter colors until real photos exist.
 
 ## Evidence on Hand
 

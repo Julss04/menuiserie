@@ -60,8 +60,39 @@
     color: var(--color-bleu-900);
   }
 
+  ::selection {
+    background: var(--color-jaune);
+    color: var(--color-encre);
+  }
+
+  input,
+  select,
+  textarea {
+    caret-color: var(--color-bleu);
+    accent-color: var(--color-bleu);
+  }
+
+  html {
+    scrollbar-color: var(--color-bleu) var(--color-beige);
+  }
+
   :focus-visible {
     outline: 3px solid var(--color-jaune);
     outline-offset: 2px;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

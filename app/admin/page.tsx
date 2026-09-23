@@ -35,7 +35,7 @@ export default function AdminPage() {
 
       <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <h1 className="text-3xl">Demandes de réservation</h1>
-        <p className="mt-2 mb-6 rounded-lg border-l-4 border-orange bg-white px-4 py-3 text-sm">
+        <p className="mt-2 mb-6 rounded-xl bg-jaune-200 px-4 py-3 text-sm">
           Démonstration sans back-office : les lignes marquées « exemple » sont fictives, et les
           demandes envoyées depuis le site ne sont gardées que dans cet onglet.
         </p>

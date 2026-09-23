@@ -1,6 +1,6 @@
 export const ADDRESS = "161 rue du Mesnil, 50400 Granville";
 
-type Block = { start: number; end: number };
+export type Block = { start: number; end: number };
 
 // Horaires fixes de l'atelier, indexés par getDay() (0 = dimanche).
 export const OPENING_HOURS: Record<number, Block[]> = {
@@ -16,12 +16,33 @@ export const OPENING_HOURS: Record<number, Block[]> = {
   ],
 };
 
-export const OPENING_HOURS_LABELS: { day: string; hours: string }[] = [
-  { day: "Mercredi", hours: "10h–12h · 14h–18h" },
-  { day: "Jeudi", hours: "14h–18h" },
-  { day: "Vendredi", hours: "14h–18h" },
-  { day: "Samedi", hours: "10h–12h · 14h–18h" },
-];
+const DAY_NAMES = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
+
+/** La semaine du lundi au dimanche, pour l'affichage des horaires. */
+export const WEEK = [1, 2, 3, 4, 5, 6, 0].map((index) => ({
+  index,
+  name: DAY_NAMES[index].charAt(0).toUpperCase() + DAY_NAMES[index].slice(1),
+  blocks: OPENING_HOURS[index] ?? [],
+}));
+
+/** Phrase courte qui dit si l'atelier est ouvert, ou quand il ouvre. */
+export function openStatus(now: Date): { open: boolean; label: string } {
+  const hour = now.getHours() + now.getMinutes() / 60;
+  const today = OPENING_HOURS[now.getDay()] ?? [];
+  const current = today.find((b) => hour >= b.start && hour < b.end);
+  if (current) return { open: true, label: `Ouvert maintenant, jusqu'à ${current.end}h` };
+  const later = today.find((b) => hour < b.start);
+  if (later) return { open: false, label: `Ouvre aujourd'hui à ${later.start}h` };
+  for (let offset = 1; offset <= 7; offset++) {
+    const day = (now.getDay() + offset) % 7;
+    const blocks = OPENING_HOURS[day];
+    if (blocks) {
+      const when = offset === 1 ? "demain" : DAY_NAMES[day];
+      return { open: false, label: `Prochaine ouverture ${when} à ${blocks[0].start}h` };
+    }
+  }
+  return { open: false, label: "Fermé" };
+}
 
 export type Slot = { id: string; label: string };
 
