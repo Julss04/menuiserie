@@ -4,6 +4,8 @@ import { ChainLine } from "./components/ChainLine";
 import { ArrowDisc, Hero } from "./components/Hero";
 import { Marquee } from "./components/Marquee";
 import { Reveal } from "./components/Reveal";
+import { ScrollWheel } from "./components/ScrollWheel";
+import { TextReveal } from "./components/TextReveal";
 import { SiteHeader } from "./components/SiteHeader";
 import { WeekTimeline } from "./components/WeekTimeline";
 import { ADDRESS } from "@/lib/schedule";
@@ -57,12 +59,13 @@ export default function Home() {
         {/* L'atelier */}
         <section id="atelier" className="scroll-mt-20 px-4 py-24 sm:px-6 md:py-32">
           <div className="mx-auto max-w-7xl">
-            <Reveal>
-              <h2 className="max-w-4xl text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em]">
-                Ici, on ne dépose pas son vélo.
-                <span className="text-encre"> On le répare, accompagné.</span>
-              </h2>
-            </Reveal>
+            <TextReveal
+              className="max-w-4xl text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em]"
+              segments={[
+                { text: "Ici, on ne dépose pas son vélo." },
+                { text: "On le répare, accompagné.", className: "text-encre" },
+              ]}
+            />
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed">
                 L&apos;Annexe fait circuler les savoirs, les outils et les pièces pour que les vélos
@@ -91,24 +94,30 @@ export default function Home() {
         {/* Services */}
         <section id="services" className="scroll-mt-20 bg-bleu-100 px-4 py-24 sm:px-6 md:py-32">
           <div className="mx-auto max-w-7xl">
-            <Reveal>
-              <h2 className="text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em]">
-                Ce qu&apos;on vient faire à l&apos;atelier
-              </h2>
-            </Reveal>
+            <TextReveal
+              className="text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em]"
+              segments={[{ text: "Ce qu'on vient faire à l'atelier" }]}
+            />
             <ul className="mt-12 border-t-2 border-bleu-900/80">
               {SERVICES.map((service, i) => (
                 <li key={service.title} className="border-b border-bleu-300">
                   <Reveal delay={i * 0.06} from={-32}>
                     <a
                       href="#reserver"
-                      className="group grid items-center gap-x-8 gap-y-3 py-7 transition-colors md:grid-cols-[1.1fr_1.4fr_auto] md:py-9"
+                      className="group relative isolate -mx-4 grid items-center gap-x-8 gap-y-3 px-4 py-7 md:grid-cols-[1.1fr_1.4fr_auto] md:py-9"
                     >
-                      <h3 className="text-[clamp(1.6rem,3vw,2.4rem)] leading-tight tracking-[-0.025em] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-3">
+                      {/* Au survol, le bleu balaie la ligne dans le sens de la flèche. */}
+                      <span
+                        aria-hidden
+                        className="absolute inset-0 -z-10 bg-bleu-900 [clip-path:inset(0_100%_0_0)] transition-[clip-path] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:[clip-path:inset(0_0_0_0)] group-focus-visible:[clip-path:inset(0_0_0_0)] motion-reduce:transition-none"
+                      />
+                      <h3 className="text-[clamp(1.6rem,3vw,2.4rem)] leading-tight tracking-[-0.025em] transition-[color,translate] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-3 group-hover:text-white group-focus-visible:text-white">
                         {service.title}
                       </h3>
-                      <p className="max-w-xl text-[17px] leading-relaxed">
-                        <span className="mb-1 block text-sm font-bold text-bleu-900">{service.tag}</span>
+                      <p className="max-w-xl text-[17px] leading-relaxed transition-colors duration-500 group-hover:text-white group-focus-visible:text-white">
+                        <span className="mb-1 block text-sm font-bold text-bleu-900 transition-colors duration-500 group-hover:text-jaune group-focus-visible:text-jaune">
+                          {service.tag}
+                        </span>
                         {service.text}
                       </p>
                       <ArrowDisc className="hidden size-12 md:inline-flex" />
@@ -122,25 +131,13 @@ export default function Home() {
 
         {/* Vélos reconditionnés */}
         <section className="relative isolate overflow-hidden bg-jaune px-4 py-24 sm:px-6 md:py-28">
-          <svg
-            aria-hidden
-            viewBox="0 0 400 400"
-            className="absolute top-1/2 -right-24 -z-10 hidden w-[40rem] max-w-none -translate-y-1/2 opacity-90 lg:block"
-          >
-            <circle cx={200} cy={200} r={170} fill="none" stroke="#2f818e" strokeWidth={34} />
-            {Array.from({ length: 24 }, (_, i) => {
-              const a = (i / 24) * Math.PI * 2;
-              return (
-                <line key={i} x1={200} y1={200} x2={200 + 150 * Math.cos(a)} y2={200 + 150 * Math.sin(a)} stroke="#236e76" strokeWidth={2} opacity={0.5} />
-              );
-            })}
-            <circle cx={200} cy={200} r={18} fill="#236e76" />
-          </svg>
+          <ScrollWheel />
           <div className="mx-auto max-w-7xl">
             <Reveal className="max-w-2xl">
-              <h2 className="text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em] text-bleu-900">
-                Des vélos reconditionnés, au fil des arrivages.
-              </h2>
+              <TextReveal
+                className="text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em] text-bleu-900"
+                segments={[{ text: "Des vélos reconditionnés, au fil des arrivages." }]}
+              />
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-encre">
                 Les vélos qu&apos;on nous donne sont remis en état à l&apos;atelier, puis vendus à
                 petit prix. Il n&apos;y a pas de stock fixe : ils partent comme ils arrivent. Le
@@ -162,9 +159,10 @@ export default function Home() {
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
             <div>
               <Reveal>
-                <h2 className="text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em]">
-                  Quand passer
-                </h2>
+                <TextReveal
+                  className="text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em]"
+                  segments={[{ text: "Quand passer" }]}
+                />
                 <p className="mt-4 mb-10 max-w-xl text-lg">
                   Quatre jours par semaine, du mercredi au samedi.
                 </p>
@@ -207,9 +205,10 @@ export default function Home() {
           </svg>
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_1.35fr] lg:gap-16">
             <Reveal>
-              <h2 className="text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em] text-white">
-                Réserver un créneau
-              </h2>
+              <TextReveal
+                className="text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em] text-white"
+                segments={[{ text: "Réserver un créneau" }]}
+              />
               <p className="mt-6 max-w-md text-lg leading-relaxed text-white">
                 Choisissez ce qui vous amène et l&apos;heure qui vous arrange. Un bénévole vous
                 confirme le rendez-vous par e-mail.
