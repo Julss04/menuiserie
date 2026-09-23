@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Noto_Sans, Open_Sans } from "next/font/google";
-import { BookingsProvider } from "@/lib/bookings";
 import "./globals.css";
 
 // Charte : Noto Sans Bold pour les titres, Open Sans pour les textes.
@@ -30,9 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={`${notoSans.variable} ${openSans.variable}`}>
-      <body className="min-h-screen antialiased">
-        <BookingsProvider>{children}</BookingsProvider>
-      </body>
+      <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
 }

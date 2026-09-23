@@ -17,6 +17,9 @@ const SEAT = { x: 256, y: 128 };
 const HEAD_TOP = { x: 436, y: 118 };
 const HEAD_BOTTOM = { x: 448, y: 158 };
 
+// Arrondi au centième : même valeur au rendu serveur et dans le navigateur.
+const r2 = (n: number) => Math.round(n * 100) / 100;
+
 // Plateau dentelé, calculé plutôt que dessiné à la main.
 function gearPath(cx: number, cy: number, r: number, teeth: number, depth: number) {
   const points: string[] = [];
@@ -64,8 +67,8 @@ function Wheel({ cx, cy, rotate }: { cx: number; cy: number; rotate: MotionValue
         key={i}
         x1={cx}
         y1={cy}
-        x2={cx + (WHEEL_R - 12) * Math.cos(a)}
-        y2={cy + (WHEEL_R - 12) * Math.sin(a)}
+        x2={r2(cx + (WHEEL_R - 12) * Math.cos(a))}
+        y2={r2(cy + (WHEEL_R - 12) * Math.sin(a))}
       />
     );
   });

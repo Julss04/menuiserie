@@ -19,10 +19,12 @@ Autres commandes : `npm run lint` (vérification du code), `npm run build` (vers
 |---|---|
 | `app/page.tsx` | La page d'accueil (sections, textes). |
 | `app/components/` | Les morceaux de la page : en-tête, accueil avec le vélo animé, bandeau, horaires, formulaire… |
-| `app/admin/page.tsx` | Le tableau des réservations (démo, sans connexion). |
+| `app/admin/page.tsx` | L'espace bénévoles : la liste des réservations, protégée par mot de passe (`proxy.ts`). |
 | `app/globals.css` | Les couleurs et typographies de la charte. |
 | `lib/schedule.ts` | Les horaires d'ouverture : c'est ici qu'on les modifie. |
-| `lib/bookings.tsx` | Les réservations. `submitBooking` est l'unique point à brancher sur une vraie base (Firebase). |
+| `lib/booking.ts` | Les types de besoins et la vérification d'une demande. |
+| `app/actions.ts` | L'envoi d'une réservation, côté serveur : enregistrement puis e-mail à l'association. |
+| `lib/server/` | Firebase (enregistrement, `bookingStore.ts`) et Resend (e-mail, `notify.ts`). |
 | `public/brand/` | Les logos L'Annexe tirés de la charte (ne pas les modifier). |
 | `PRODUCT.md` | Le cadre du projet : public, objectifs, contraintes, charte. |
 
@@ -34,8 +36,20 @@ Charte Tri-Marrant (mai 2026), pages du logo variant L'Annexe :
 - Typographies : Noto Sans Bold pour les titres, Open Sans pour les textes.
 - Logo : jamais sous 25 px de haut, toujours avec une marge autour, version blanche sur fond bleu.
 
+## Réservations : ce qu'il faut configurer
+
+Les variables sont listées dans `.env.example`. En local, les copier dans `.env.local` ; en ligne, les ajouter dans Vercel (Settings → Environment Variables), puis redéployer.
+
+| Variable | À quoi elle sert |
+|---|---|
+| `ADMIN_PASSWORD` | Mot de passe de l'espace bénévoles `/admin` (l'identifiant demandé par le navigateur est libre). |
+| `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` | Enregistrement des réservations dans Firestore (collection `reservations`). |
+| `RESEND_API_KEY`, `BOOKING_NOTIFY_TO` | E-mail envoyé à l'association à chaque réservation (facultatif). |
+| `BOOKING_NOTIFY_FROM` | Adresse d'expédition, une fois le nom de domaine vérifié dans Resend. |
+
+Sans Firebase : en local, les réservations restent en mémoire le temps du test ; en ligne, le formulaire affiche une erreur plutôt que de perdre une demande.
+
 ## À savoir
 
-- Les réservations ne sont pas encore enregistrées : elles restent dans l'onglet du navigateur. Les lignes « exemple » de `/admin` sont fictives.
 - Il n'y a pas encore de photos : les fonds et le vélo sont dessinés aux couleurs de la charte.
 - Mise en ligne : Vercel, qui déploie la branche `main`.

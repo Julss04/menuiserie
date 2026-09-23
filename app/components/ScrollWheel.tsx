@@ -25,8 +25,8 @@ export function ScrollWheel() {
               key={i}
               x1={200}
               y1={200}
-              x2={200 + 150 * Math.cos(a)}
-              y2={200 + 150 * Math.sin(a)}
+              x2={Math.round((200 + 150 * Math.cos(a)) * 100) / 100}
+              y2={Math.round((200 + 150 * Math.sin(a)) * 100) / 100}
               stroke="#236e76"
               strokeWidth={2}
               opacity={0.5}
