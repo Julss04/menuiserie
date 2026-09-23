@@ -54,11 +54,26 @@ export function BookingForm() {
       <AnimatePresence mode="wait" initial={false}>
         {confirmed ? (
           <motion.div key="merci" role="status" className="p-7 sm:p-10" {...slide}>
-            <span className="flex size-14 items-center justify-center rounded-full border-[5px] border-jaune bg-bleu text-white">
+            <motion.span
+              className="flex size-14 items-center justify-center rounded-full border-[5px] border-jaune bg-bleu text-white"
+              initial={reduce ? false : { scale: 0.4, rotate: -90 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.1 }}
+            >
               <svg viewBox="0 0 24 24" className="size-6" aria-hidden>
-                <path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />
+                <motion.path
+                  d="M5 12.5l4.5 4.5L19 7.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={3}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={reduce ? false : { pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.6, ease: EASE, delay: 0.3 }}
+                />
               </svg>
-            </span>
+            </motion.span>
             <p className="mt-6 font-titre text-3xl font-bold tracking-[-0.02em] text-bleu-900">
               Merci {confirmed.prenom}, c&apos;est noté.
             </p>

@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { useMotionValueEvent, useScroll } from "framer-motion";
+import { motion, useMotionValueEvent, useScroll, useSpring } from "framer-motion";
 
 export function SiteHeader() {
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 40 });
   const [solid, setSolid] = useState(false);
   // Transparent sur le bleu de l'accueil, fond beige dès qu'on en sort.
   useMotionValueEvent(scrollY, "change", (y) => setSolid(y > 80));
@@ -58,6 +59,12 @@ export function SiteHeader() {
           </a>
         </nav>
       </div>
+      {/* Avancement dans la page : une jauge jaune sous l'en-tête. */}
+      <motion.div
+        aria-hidden
+        style={{ scaleX: progress, originX: 0 }}
+        className={`absolute inset-x-0 bottom-0 h-1 bg-jaune transition-opacity duration-300 ${solid ? "opacity-100" : "opacity-0"}`}
+      />
     </header>
   );
 }
