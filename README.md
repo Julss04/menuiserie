@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# L'Annexe — site de l'atelier vélo
 
-## Getting Started
+Site vitrine et de réservation de **L'Annexe**, l'atelier vélo participatif de l'association Tri-Marrant à Granville (161 rue du Mesnil).
 
-First, run the development server:
+## Lancer le site en local
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Puis ouvrir <http://localhost:3000> (site public) et <http://localhost:3000/admin> (tableau des réservations, démo).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Autres commandes : `npm run lint` (vérification du code), `npm run build` (version de production).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Organisation
 
-## Learn More
+| Dossier | Contenu |
+|---|---|
+| `app/page.tsx` | La page d'accueil (sections, textes). |
+| `app/components/` | Les morceaux de la page : en-tête, accueil avec le vélo animé, bandeau, horaires, formulaire… |
+| `app/admin/page.tsx` | Le tableau des réservations (démo, sans connexion). |
+| `app/globals.css` | Les couleurs et typographies de la charte. |
+| `lib/schedule.ts` | Les horaires d'ouverture : c'est ici qu'on les modifie. |
+| `lib/bookings.tsx` | Les réservations. `submitBooking` est l'unique point à brancher sur une vraie base (Firebase). |
+| `public/brand/` | Les logos L'Annexe tirés de la charte (ne pas les modifier). |
+| `PRODUCT.md` | Le cadre du projet : public, objectifs, contraintes, charte. |
 
-To learn more about Next.js, take a look at the following resources:
+## Charte graphique
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Charte Tri-Marrant (mai 2026), pages du logo variant L'Annexe :
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Couleurs : Bleu `#2f818e` (prioritaire), Jaune canard `#efb023`, Orange couchant `#ff6542`, Beige `#fff1d7` (fond).
+- Typographies : Noto Sans Bold pour les titres, Open Sans pour les textes.
+- Logo : jamais sous 25 px de haut, toujours avec une marge autour, version blanche sur fond bleu.
 
-## Deploy on Vercel
+## À savoir
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Les réservations ne sont pas encore enregistrées : elles restent dans l'onglet du navigateur. Les lignes « exemple » de `/admin` sont fictives.
+- Il n'y a pas encore de photos : les fonds et le vélo sont dessinés aux couleurs de la charte.
+- Mise en ligne : Vercel, qui déploie la branche `main`.
