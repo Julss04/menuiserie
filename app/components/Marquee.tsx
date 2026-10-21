@@ -13,7 +13,7 @@ import {
   useVelocity,
 } from "framer-motion";
 
-const WORDS = ["Bilan complet", "Freins & pneus", "Transmission", "Vélos reconditionnés", "Pièces de réemploi"];
+const DEFAULT_WORDS = ["Bilan complet", "Freins & pneus", "Transmission", "Vélos reconditionnés", "Pièces de réemploi"];
 
 // Quatre séries identiques : décaler d'un quart de la largeur boucle sans raccord.
 const LOOP = 25;
@@ -26,7 +26,7 @@ const wrap = (v: number) => (((v % LOOP) + LOOP) % LOOP) - LOOP;
  * Bandeau qui glisse en continu. Il accélère quand on fait défiler la page
  * et change de sens quand on remonte, comme une roue libre.
  */
-export function Marquee() {
+export function Marquee({ words = DEFAULT_WORDS }: { words?: string[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
   const reduce = useReducedMotion();
@@ -49,7 +49,7 @@ export function Marquee() {
 
   const run = (hidden: boolean) => (
     <div aria-hidden={hidden || undefined} className="flex shrink-0 items-center gap-10 pr-10">
-      {WORDS.map((word) => (
+      {words.map((word) => (
         <span key={word} className="flex items-center gap-10 whitespace-nowrap">
           {word}
           <svg viewBox="0 0 40 40" className="size-9 shrink-0" aria-hidden>

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { NEED_TYPES, useBookings, type Booking, type NeedType } from "@/lib/bookings";
+import { NEED_TYPES, submitBooking, type Booking, type NeedType } from "@/lib/bookings";
 import { upcomingSlots } from "@/lib/schedule";
 import { useNow } from "@/lib/useNow";
 import { ArrowDisc } from "./Hero";
@@ -13,7 +13,6 @@ const inputClass =
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function BookingForm() {
-  const { submitBooking } = useBookings();
   const reduce = useReducedMotion();
   // Les créneaux dépendent de la date du visiteur : calculés côté client uniquement.
   const now = useNow();
@@ -23,21 +22,32 @@ export function BookingForm() {
   const [besoin, setBesoin] = useState<NeedType>("bilan");
   const [sending, setSending] = useState(false);
   const [confirmed, setConfirmed] = useState<Booking | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const creneauId = String(data.get("creneau") ?? "");
     setSending(true);
-    const booking = await submitBooking({
-      nom: String(data.get("nom")),
-      prenom: String(data.get("prenom")),
-      email: String(data.get("email")),
-      telephone: String(data.get("telephone")),
-      besoin,
-      creneau: slots.find((s) => s.id === data.get("creneau"))?.label ?? "",
-    });
-    setSending(false);
-    setConfirmed(booking);
+    setError(null);
+    try {
+      const result = await submitBooking({
+        nom: String(data.get("nom")),
+        prenom: String(data.get("prenom")),
+        email: String(data.get("email")),
+        telephone: String(data.get("telephone")),
+        besoin,
+        creneauId,
+        creneau: slots.find((s) => s.id === creneauId)?.label ?? "",
+        site: String(data.get("site") ?? ""),
+      });
+      if (result.ok) setConfirmed(result.booking);
+      else setError(result.error);
+    } catch {
+      setError("La connexion a échoué. Vérifiez votre accès à internet et réessayez.");
+    } finally {
+      setSending(false);
+    }
   }
 
   const slide = reduce
@@ -161,6 +171,15 @@ export function BookingForm() {
                 ))}
               </select>
             </label>
+
+            {/* Piège à robots : invisible pour les visiteurs, ignoré par les lecteurs d'écran. */}
+            <input name="site" tabIndex={-1} autoComplete="off" aria-hidden className="absolute -left-[9999px] size-px opacity-0" />
+
+            {error && (
+              <p role="alert" className="rounded-xl bg-orange-100 px-4 py-3 font-bold text-orange-900">
+                {error}
+              </p>
+            )}
 
             <button
               type="submit"

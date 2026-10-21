@@ -61,7 +61,10 @@ export function upcomingSlots(from: Date, days = 14): Slot[] {
     const blocks = OPENING_HOURS[date.getDay()];
     if (!blocks) continue;
     const dayLabel = dateFormat.format(date);
-    const isoDay = date.toISOString().slice(0, 10);
+    // Date locale du visiteur (toISOString passerait en UTC et décalerait le jour).
+    const isoDay = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+      .map((n, i) => String(n).padStart(i === 0 ? 4 : 2, "0"))
+      .join("-");
     for (const { start, end } of blocks) {
       for (let hour = start; hour < end; hour++) {
         slots.push({

@@ -12,7 +12,7 @@ Two audiences: (1) local residents in and around Granville who own or want a bik
 
 ## Product Purpose
 
-A showcase + booking site for L'Annexe, a participatory bike workshop ("atelier vélo participatif") in Granville. Visitors book a slot to come get help; success is a completed booking request. A companion `/admin` view lets the association see those requests — currently a front-end-only proof of concept, not a real back office.
+The website of Tri-Marrant, the reuse shop (ressourcerie) run by the association Ose Recyclerie in the Granville area: donating objects, visiting the shop, the association's story and values, volunteering. L'Annexe, a participatory bike workshop ("atelier vélo participatif") in Granville, is a clearly visible sub-section at `/annexe` (highlighted in the main navigation and on the home page), where visitors book a slot; success there is a completed booking request. A companion `/annexe/admin` view lets the association see those requests.
 
 ## Positioning
 
@@ -20,14 +20,14 @@ Participatory, not transactional: visitors repair their own bike alongside a vol
 
 ## Operating Context
 
-Fixed weekly opening hours (not by-appointment-only): Mercredi 10h–12h/14h–18h, Jeudi 14h–18h, Vendredi 14h–18h, Samedi 10h–12h/14h–18h. Address: 161 rue du Mesnil, Granville. The booking form and the `/admin` dashboard share bookings via in-memory React state (a client-side context) scoped to one browser session — this is a demo mechanism, not persistence; refreshing the tab loses live submissions. `/admin` has no auth in this PoC.
+Fixed weekly opening hours (not by-appointment-only): Mercredi 10h–12h/14h–18h, Jeudi 14h–18h, Vendredi 14h–18h, Samedi 10h–12h/14h–18h. Address: 161 rue du Mesnil, Granville. Bookings are sent through a server action, stored in Firebase Firestore and emailed to the association (Resend). `/annexe/admin` lists them and is protected by a shared volunteer password (HTTP basic auth in `proxy.ts`).
 
 ## Capabilities and Constraints
 
 - Booking needs: nom, prénom, email, téléphone, type de besoin (bilan complet / freins-pneus / transmission / achat vélo reconditionné), créneau (drawn from the fixed weekly hours above).
 - No account creation for visitors.
-- No backend yet: form submission is isolated behind a single `submitBooking` function specifically so it can be swapped for a Firestore write later without touching the rest of the form.
-- `/admin` renders mock seed bookings plus anything submitted live in the same session; nothing is persisted server-side.
+- Form submission goes through the single `submitBooking` function, which calls the `createBooking` server action (validation, Firestore write, email).
+- `/annexe/admin` shows the stored bookings, most recent first; no mock rows.
 
 ## Brand Commitments
 
@@ -35,11 +35,11 @@ Name is confirmed: "L'Annexe", the Granville variant of the Tri-Marrant logo. Th
 
 ## Evidence on Hand
 
-None yet: no real bike photos, no testimonials, no volunteer names beyond what's in the mock `/admin` data (which is clearly fabricated demo data, not real bookings) — future work must not present the seed rows as real customers.
+None yet: no real bike photos, no testimonials, no volunteer names. Future work must not invent customers, testimonials or figures.
 
 ## Product Principles
 
 1. Booking is the one conversion action on the public site — hours and address exist to support that decision, not compete with it.
 2. Keep the tone participatory and associative (circular economy, volunteer-run), not a commercial bike shop's tone.
-3. Treat `/admin` as a demo of the *concept* of a dashboard, not a real admin surface — no auth, no real data, and the mock rows must stay legible as mock.
-4. Keep `submitBooking` the single seam where a real backend (Firebase) gets wired in later; don't scatter submission logic elsewhere.
+3. `/annexe/admin` is a simple volunteer view of real bookings behind a shared password, not a full back office.
+4. Keep `submitBooking` / `createBooking` the single path for a booking; don't scatter submission logic elsewhere.
