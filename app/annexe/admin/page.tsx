@@ -28,7 +28,7 @@ export default async function AdminPage() {
     <div className="min-h-screen">
       <header className="bg-bleu">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
-          <Link href="/" className="p-1.5">
+          <Link href="/annexe" className="p-1.5">
             <Image
               src="/brand/lannexe-logo-blanc.svg"
               alt="L'Annexe — retour au site"

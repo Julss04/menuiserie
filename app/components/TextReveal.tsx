@@ -15,7 +15,7 @@ export function TextReveal({
   segments,
   className,
 }: {
-  as?: "h2" | "h3";
+  as?: "h1" | "h2" | "h3";
   segments: Segment[];
   className?: string;
 }) {

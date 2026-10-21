@@ -17,9 +17,12 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "L'Annexe — Atelier vélo participatif à Granville",
+  title: {
+    default: "Tri-Marrant — Ressourcerie solidaire du pays granvillais",
+    template: "%s | Tri-Marrant",
+  },
   description:
-    "Réparez votre vélo avec un bénévole ou trouvez un vélo reconditionné à L'Annexe, l'atelier vélo participatif de Tri-Marrant à Granville.",
+    "Tri-Marrant, la ressourcerie d'Ose Recyclerie : on donne une seconde vie à vos objets, on crée de l'emploi solidaire et on répare des vélos à L'Annexe.",
 };
 
 export default function RootLayout({

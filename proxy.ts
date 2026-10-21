@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 /**
- * Protège l'espace bénévoles (/admin) par un mot de passe partagé,
+ * Protège l'espace bénévoles (/annexe/admin) par un mot de passe partagé,
  * demandé par le navigateur (identifiant libre, mot de passe = ADMIN_PASSWORD).
  */
 export function proxy(request: NextRequest) {
@@ -26,5 +26,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/annexe/admin/:path*"],
 };

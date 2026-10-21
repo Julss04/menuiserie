@@ -1,14 +1,22 @@
+import type { Metadata } from "next";
 import Image from "next/image";
-import { BookingForm } from "./components/BookingForm";
-import { ChainLine } from "./components/ChainLine";
-import { ArrowDisc, Hero } from "./components/Hero";
-import { Marquee } from "./components/Marquee";
-import { Reveal } from "./components/Reveal";
-import { ScrollWheel } from "./components/ScrollWheel";
-import { TextReveal } from "./components/TextReveal";
-import { SiteHeader } from "./components/SiteHeader";
-import { WeekTimeline } from "./components/WeekTimeline";
+import Link from "next/link";
+import { BookingForm } from "../components/BookingForm";
+import { ChainLine } from "../components/ChainLine";
+import { ArrowDisc, Hero } from "../components/Hero";
+import { Marquee } from "../components/Marquee";
+import { Reveal } from "../components/Reveal";
+import { ScrollWheel } from "../components/ScrollWheel";
+import { TextReveal } from "../components/TextReveal";
+import { AnnexeHeader } from "../components/AnnexeHeader";
+import { WeekTimeline } from "../components/WeekTimeline";
 import { ADDRESS } from "@/lib/schedule";
+
+export const metadata: Metadata = {
+  title: "L'Annexe, atelier vélo participatif",
+  description:
+    "Réparez votre vélo avec un bénévole ou trouvez un vélo reconditionné à L'Annexe, l'atelier vélo participatif de Tri-Marrant à Granville.",
+};
 
 const STEPS = [
   {
@@ -51,7 +59,7 @@ const SERVICES = [
 export default function Home() {
   return (
     <>
-      <SiteHeader />
+      <AnnexeHeader />
       <main>
         <Hero />
         <Marquee />
@@ -229,11 +237,16 @@ export default function Home() {
           <div className="p-1.5">
             <Image src="/brand/lannexe-logo-blanc.svg" alt="L'Annexe, Tri-Marrant.Ose" width={275} height={61} className="h-14 w-auto" />
           </div>
-          <p className="max-w-md text-[15px] leading-relaxed sm:text-right">
-            Atelier vélo participatif de l&apos;association Tri-Marrant
-            <br />
-            {ADDRESS}
-          </p>
+          <div className="max-w-md text-[15px] leading-relaxed sm:text-right">
+            <p>
+              Atelier vélo participatif de l&apos;association Tri-Marrant
+              <br />
+              {ADDRESS}
+            </p>
+            <Link href="/" className="mt-3 inline-block font-bold underline underline-offset-4 hover:text-jaune">
+              Découvrir Tri-Marrant, la ressourcerie
+            </Link>
+          </div>
         </div>
       </footer>
     </>

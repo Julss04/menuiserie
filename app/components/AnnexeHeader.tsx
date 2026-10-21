@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion, useMotionValueEvent, useScroll, useSpring } from "framer-motion";
 
-export function SiteHeader() {
+export function AnnexeHeader() {
   const { scrollY, scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 40 });
   const [solid, setSolid] = useState(false);
@@ -19,7 +19,7 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link href="/" className="relative block p-1.5" aria-label="L'Annexe, retour en haut">
+        <Link href="/annexe" className="relative block p-1.5" aria-label="L'Annexe, retour en haut">
           <Image
             src="/brand/lannexe-logo-blanc.svg"
             alt=""
@@ -40,6 +40,15 @@ export function SiteHeader() {
           />
         </Link>
         <nav className={`flex items-center gap-1 text-[15px] font-bold sm:gap-2 ${solid ? "text-bleu-900" : "text-white"}`}>
+          <Link
+            href="/"
+            className="mr-1 hidden items-center gap-1.5 rounded-full px-3 py-2 opacity-80 hover:underline hover:underline-offset-4 hover:opacity-100 lg:inline-flex"
+          >
+            <svg viewBox="0 0 20 20" className="size-4" aria-hidden>
+              <path d="M16 10H5M9 5l-5 5 5 5" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Tri-Marrant
+          </Link>
           <a href="#atelier" className="hidden rounded-full px-3 py-2 hover:underline hover:underline-offset-4 md:inline">
             L&apos;atelier
           </a>
