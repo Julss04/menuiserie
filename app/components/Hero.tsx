@@ -92,16 +92,17 @@ export function Hero() {
             transition={{ duration: 0.8, ease: EASE, delay: 0.45 }}
           >
             <p className="mt-7 max-w-[34rem] text-lg leading-relaxed text-white sm:text-xl">
-              L&apos;Annexe est l&apos;atelier vélo participatif de Tri-Marrant à Granville. Un
-              bénévole vous guide, les outils et les pièces de réemploi sont là : vous repartez
-              avec un vélo qui roule, et le geste en plus.
+              L&apos;Annexe est l&apos;atelier d&apos;autoréparation de Tri-Marrant à Granville, un
+              espace d&apos;entraide ouvert à toutes et tous. Les outils et les pièces de seconde main
+              sont là, l&apos;équipe vous donne un coup de main : vous repartez avec un vélo qui
+              roule, et le geste en plus.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
               <a
-                href="#reserver"
+                href="#atelier"
                 className="group inline-flex items-center gap-3 rounded-full bg-jaune py-3.5 pr-4 pl-7 font-titre text-lg font-bold text-encre shadow-[0_10px_30px_-10px_rgba(0,0,0,0.45)] transition-colors hover:bg-jaune-600"
               >
-                Réserver un créneau
+                Comment ça marche
                 <ArrowDisc />
               </a>
               <OpenStatus />

@@ -24,7 +24,7 @@ export default function BoutiquesPage() {
     <>
       <PageIntro
         title="Deux adresses, un même esprit"
-        intro="La ressourcerie pour chiner et déposer vos dons, L'Annexe pour réparer votre vélo. Les deux sont tenues par l'association Ose Recyclerie."
+        intro="La ressourcerie pour chiner et déposer vos dons, L'Annexe pour réparer vous-même votre vélo ou en acheter un d'occasion. Les deux sont tenues par l'association Ose Recyclerie."
       />
 
       <section className="px-4 py-24 sm:px-6 md:py-28">
@@ -98,8 +98,8 @@ export default function BoutiquesPage() {
                   Découvrir L&apos;Annexe
                   <ArrowDisc className="size-8" />
                 </Link>
-                <Link href="/annexe#reserver" className="font-bold underline underline-offset-4">
-                  Réserver un créneau
+                <Link href="/annexe#tarifs" className="font-bold underline underline-offset-4">
+                  Tarifs de l&apos;atelier
                 </Link>
               </div>
             </article>

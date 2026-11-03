@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, useMotionValueEvent, useScroll, useSpring } from "framer-motion";
 
 export function AnnexeHeader() {
+  const pathname = usePathname();
   const { scrollY, scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 40 });
   const [solid, setSolid] = useState(false);
@@ -49,23 +51,29 @@ export function AnnexeHeader() {
             </svg>
             Tri-Marrant
           </Link>
-          <a href="#atelier" className="hidden rounded-full px-3 py-2 hover:underline hover:underline-offset-4 md:inline">
+          <Link href="/annexe#atelier" className="hidden rounded-full px-3 py-2 hover:underline hover:underline-offset-4 md:inline">
             L&apos;atelier
-          </a>
-          <a href="#services" className="hidden rounded-full px-3 py-2 hover:underline hover:underline-offset-4 md:inline">
-            Services
-          </a>
-          <a href="#horaires" className="hidden rounded-full px-3 py-2 hover:underline hover:underline-offset-4 sm:inline">
-            Horaires
-          </a>
-          <a
-            href="#reserver"
+          </Link>
+          <Link href="/annexe#tarifs" className="hidden rounded-full px-3 py-2 hover:underline hover:underline-offset-4 md:inline">
+            Tarifs
+          </Link>
+          <Link
+            href="/annexe/velos"
+            aria-current={pathname === "/annexe/velos" ? "page" : undefined}
+            className={`rounded-full px-2 py-2 hover:underline hover:underline-offset-4 sm:px-3 ${
+              pathname === "/annexe/velos" ? "underline decoration-jaune decoration-[3px] underline-offset-[6px]" : ""
+            }`}
+          >
+            Vélos<span className="hidden sm:inline"> d&apos;occasion</span>
+          </Link>
+          <Link
+            href="/annexe#horaires"
             className={`ml-1 rounded-full px-5 py-2.5 transition-colors ${
               solid ? "bg-bleu-900 text-white hover:bg-bleu" : "bg-jaune text-encre hover:bg-jaune-600"
             }`}
           >
-            Réserver
-          </a>
+            Horaires
+          </Link>
         </nav>
       </div>
       {/* Avancement dans la page : une jauge jaune sous l'en-tête. */}

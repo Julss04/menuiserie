@@ -43,36 +43,3 @@ export function openStatus(now: Date): { open: boolean; label: string } {
   }
   return { open: false, label: "Fermé" };
 }
-
-export type Slot = { id: string; label: string };
-
-const dateFormat = new Intl.DateTimeFormat("fr-FR", {
-  weekday: "long",
-  day: "numeric",
-  month: "long",
-});
-
-/** Créneaux d'une heure sur les `days` prochains jours d'ouverture. */
-export function upcomingSlots(from: Date, days = 14): Slot[] {
-  const slots: Slot[] = [];
-  for (let offset = 1; offset <= days; offset++) {
-    const date = new Date(from);
-    date.setDate(from.getDate() + offset);
-    const blocks = OPENING_HOURS[date.getDay()];
-    if (!blocks) continue;
-    const dayLabel = dateFormat.format(date);
-    // Date locale du visiteur (toISOString passerait en UTC et décalerait le jour).
-    const isoDay = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
-      .map((n, i) => String(n).padStart(i === 0 ? 4 : 2, "0"))
-      .join("-");
-    for (const { start, end } of blocks) {
-      for (let hour = start; hour < end; hour++) {
-        slots.push({
-          id: `${isoDay}T${String(hour).padStart(2, "0")}`,
-          label: `${dayLabel.charAt(0).toUpperCase()}${dayLabel.slice(1)} · ${hour}h–${hour + 1}h`,
-        });
-      }
-    }
-  }
-  return slots;
-}

@@ -13,8 +13,6 @@ import {
   useVelocity,
 } from "framer-motion";
 
-const DEFAULT_WORDS = ["Bilan complet", "Freins & pneus", "Transmission", "Vélos reconditionnés", "Pièces de réemploi"];
-
 // Quatre séries identiques : décaler d'un quart de la largeur boucle sans raccord.
 const LOOP = 25;
 // Vitesse de base, en % de la largeur totale par seconde (une série en ~19 s).
@@ -26,7 +24,7 @@ const wrap = (v: number) => (((v % LOOP) + LOOP) % LOOP) - LOOP;
  * Bandeau qui glisse en continu. Il accélère quand on fait défiler la page
  * et change de sens quand on remonte, comme une roue libre.
  */
-export function Marquee({ words = DEFAULT_WORDS }: { words?: string[] }) {
+export function Marquee({ words }: { words: string[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
   const reduce = useReducedMotion();
