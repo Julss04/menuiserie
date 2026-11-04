@@ -96,8 +96,9 @@ export default function Home() {
               L&apos;Annexe, l&apos;atelier vélo participatif
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-encre">
-              Venez réparer votre vélo avec un bénévole, avec nos outils et des pièces de réemploi. Et
-              si vous cherchez un vélo, on en remet en état au fil des dons.
+              Venez réparer vous-même votre vélo, avec nos outils, des pièces de seconde main et le
+              coup de main de l&apos;équipe. Et si vous cherchez un vélo, on en revend dès 40 €, au fil
+              des dons.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-4">
               <Link
@@ -107,8 +108,8 @@ export default function Home() {
                 Découvrir L&apos;Annexe
                 <ArrowDisc />
               </Link>
-              <Link href="/annexe#reserver" className="font-bold text-bleu-900 underline underline-offset-4">
-                Réserver un créneau à l&apos;atelier
+              <Link href="/annexe/velos" className="font-bold text-bleu-900 underline underline-offset-4">
+                Acheter un vélo d&apos;occasion
               </Link>
             </div>
           </Reveal>

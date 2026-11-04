@@ -62,7 +62,7 @@ export const HISTORY = [
   {
     year: "Aujourd'hui",
     title: "L'Annexe ouvre ses portes",
-    text: "Un atelier vélo participatif à Granville : on y répare son vélo avec un bénévole et on y trouve des vélos reconditionnés.",
+    text: "Un atelier vélo participatif à Granville : on y répare soi-même son vélo, aidé·e par l'équipe, et on y trouve des vélos d'occasion.",
   },
 ];
 
