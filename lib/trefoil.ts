@@ -8,6 +8,10 @@
  */
 export const TREFOIL_RADIUS = 26.8;
 
+/** Direction (en degrés, 0 = vers la droite, sens horaire) et distance de la pointe de chaque boucle. */
+export const TREFOIL_TIPS = { top: -93.14, right: 30.83, left: 148.89 };
+export const TREFOIL_TIP_RADIUS = 26.31;
+
 export const TREFOIL_CENTER = { x: 25.95, y: 31.85 };
 
 export const TREFOIL_LOOPS = [

@@ -5,14 +5,31 @@ import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowDisc } from "./Hero";
 import { Trefoil } from "./Trefoil";
+import { TREFOIL_RADIUS, TREFOIL_TIP_RADIUS, TREFOIL_TIPS } from "@/lib/trefoil";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// Les trois boucles du symbole, lues comme le cycle de la ressourcerie.
+// Taille du symbole dans son carré (variable CSS --sym, plus petite sur téléphone
+// pour laisser la place aux mots). Rapport entre la pointe d'une boucle et le cadre.
+const TIP_RATIO = (TREFOIL_TIP_RADIUS / TREFOIL_RADIUS / 2).toFixed(4);
+
+/** Position de la pointe d'une boucle, calculée à partir de --sym. */
+function tip(deg: number) {
+  const a = (deg * Math.PI) / 180;
+  const cos = Math.cos(a).toFixed(4);
+  const sin = Math.sin(a).toFixed(4);
+  return {
+    left: `calc(50% + var(--sym) * ${cos} * ${TIP_RATIO})`,
+    top: `calc(50% + var(--sym) * ${sin} * ${TIP_RATIO})`,
+  };
+}
+
+// Les trois boucles du symbole, lues comme le cycle de la ressourcerie :
+// chaque mot est posé juste au-delà de la pointe de sa boucle.
 const CYCLE = [
-  { label: "Vous donnez", className: "top-[4%] left-1/2 -translate-x-1/2" },
-  { label: "On trie, on répare", className: "right-[-2%] bottom-[10%]" },
-  { label: "Ça repart", className: "bottom-[10%] left-[-2%]" },
+  { label: "Vous donnez", at: tip(TREFOIL_TIPS.top), className: "-translate-x-1/2 -translate-y-full -mt-4" },
+  { label: "On trie, on répare", at: tip(TREFOIL_TIPS.right), className: "-translate-x-1/2 mt-5 sm:mt-6" },
+  { label: "Ça repart", at: tip(TREFOIL_TIPS.left), className: "-translate-x-1/2 mt-5 sm:mt-6" },
 ];
 
 export function TriHero() {
@@ -87,11 +104,16 @@ export function TriHero() {
           </motion.div>
         </motion.div>
 
-        <div className="relative mx-auto aspect-square w-full max-w-[30rem]">
-          <Trefoil progress={scrollYProgress} className="absolute inset-[9%] h-auto w-[82%] text-beige" />
+        <div className="relative mx-auto aspect-square w-full max-w-[30rem] [--sym:66%] sm:[--sym:76%]">
+          <Trefoil
+            progress={scrollYProgress}
+            className="absolute h-auto text-beige"
+            style={{ inset: "calc((100% - var(--sym)) / 2)", width: "var(--sym)" }}
+          />
           {CYCLE.map((step, i) => (
             <motion.span
               key={step.label}
+              style={step.at}
               className={`absolute rounded-full bg-bleu-900 px-4 py-2 text-sm font-bold whitespace-nowrap text-white shadow-[0_10px_24px_-12px_rgba(0,0,0,0.6)] sm:text-base ${step.className}`}
               initial={reduce ? false : { opacity: 0, scale: 0.7 }}
               animate={{ opacity: 1, scale: 1 }}
