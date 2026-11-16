@@ -3,25 +3,59 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { motion, useMotionValueEvent, useScroll, useSpring } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring } from "framer-motion";
+
+const LINKS = [
+  { href: "/annexe", label: "L'atelier" },
+  { href: "/annexe#tarifs", label: "Tarifs" },
+  { href: "/annexe/velos", label: "Vélos d'occasion" },
+];
+
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+function BackArrow({ className = "size-4" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 20 20" className={className} aria-hidden>
+      <path d="M16 10H5M9 5l-5 5 5 5" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 export function AnnexeHeader() {
   const pathname = usePathname();
+  const reduce = useReducedMotion();
   const { scrollY, scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 40 });
-  const [solid, setSolid] = useState(false);
-  // Transparent sur le bleu de l'accueil, fond beige dès qu'on en sort.
-  useMotionValueEvent(scrollY, "change", (y) => setSolid(y > 80));
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  // Transparent sur le bleu du haut de page, fond beige dès qu'on en sort.
+  useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 80));
+
+  // Referme le menu mobile à chaque changement de page.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  const solid = scrolled || open;
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-30 transition-[background-color,box-shadow] duration-300 ${
+      className={`fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow] duration-300 ${
         solid ? "bg-beige/95 shadow-[0_8px_24px_-18px_rgba(35,110,118,0.6)] backdrop-blur" : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link href="/annexe" className="relative block p-1.5" aria-label="L'Annexe, retour en haut">
+        <Link href="/annexe" className="relative block shrink-0 p-1.5" aria-label="L'Annexe, page de l'atelier">
           <Image
             src="/brand/lannexe-logo-blanc.svg"
             alt=""
@@ -41,46 +75,107 @@ export function AnnexeHeader() {
             }`}
           />
         </Link>
-        <nav className={`flex items-center gap-1 text-[15px] font-bold sm:gap-2 ${solid ? "text-bleu-900" : "text-white"}`}>
-          <Link
-            href="/"
-            className="mr-1 hidden items-center gap-1.5 rounded-full px-3 py-2 opacity-80 hover:underline hover:underline-offset-4 hover:opacity-100 lg:inline-flex"
-          >
-            <svg viewBox="0 0 20 20" className="size-4" aria-hidden>
-              <path d="M16 10H5M9 5l-5 5 5 5" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+
+        <nav
+          aria-label="Navigation de L'Annexe"
+          className={`hidden items-center gap-0.5 text-base font-bold lg:flex ${solid ? "text-bleu-900" : "text-white"}`}
+        >
+          <Link href="/" className="mr-2 inline-flex items-center gap-1.5 rounded-full px-3 py-2 hover:underline hover:underline-offset-4">
+            <BackArrow />
             Tri-Marrant
           </Link>
-          <Link href="/annexe#atelier" className="hidden rounded-full px-3 py-2 hover:underline hover:underline-offset-4 md:inline">
-            L&apos;atelier
-          </Link>
-          <Link href="/annexe#tarifs" className="hidden rounded-full px-3 py-2 hover:underline hover:underline-offset-4 md:inline">
-            Tarifs
-          </Link>
-          <Link
-            href="/annexe/velos"
-            aria-current={pathname === "/annexe/velos" ? "page" : undefined}
-            className={`rounded-full px-2 py-2 hover:underline hover:underline-offset-4 sm:px-3 ${
-              pathname === "/annexe/velos" ? "underline decoration-jaune decoration-[3px] underline-offset-[6px]" : ""
-            }`}
-          >
-            Vélos<span className="hidden sm:inline"> d&apos;occasion</span>
-          </Link>
+          {LINKS.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              aria-current={pathname === l.href ? "page" : undefined}
+              className={`rounded-full px-3 py-2 hover:underline hover:underline-offset-4 ${
+                pathname === l.href ? "underline decoration-jaune decoration-[3px] underline-offset-[6px]" : ""
+              }`}
+            >
+              {l.label}
+            </Link>
+          ))}
           <Link
             href="/annexe#horaires"
-            className={`ml-1 rounded-full px-5 py-2.5 transition-colors ${
+            className={`ml-2 rounded-full px-5 py-2.5 transition-colors ${
               solid ? "bg-bleu-900 text-white hover:bg-bleu" : "bg-jaune text-encre hover:bg-jaune-600"
             }`}
           >
-            Horaires
+            Horaires et adresse
           </Link>
         </nav>
+
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-controls="menu-annexe"
+          className={`flex h-12 items-center gap-2.5 rounded-full pr-5 pl-4 font-bold lg:hidden ${
+            solid ? "bg-bleu-900 text-white" : "bg-white/15 text-white"
+          }`}
+        >
+          <svg viewBox="0 0 24 24" className="size-5" aria-hidden>
+            <motion.path fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" animate={{ d: open ? "M6 6L18 18" : "M4 8H20" }} />
+            <motion.path fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" animate={{ d: open ? "M6 18L18 6" : "M4 16H20" }} />
+          </svg>
+          {open ? "Fermer" : "Menu"}
+        </button>
       </div>
-      {/* Avancement dans la page : une jauge jaune sous l'en-tête. */}
+
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            id="menu-annexe"
+            aria-label="Navigation de L'Annexe"
+            className="max-h-[calc(100dvh-5rem)] overflow-y-auto border-t border-bleu-200 bg-beige lg:hidden"
+            initial={reduce ? false : { height: 0 }}
+            animate={{ height: "auto" }}
+            exit={reduce ? undefined : { height: 0 }}
+            transition={{ duration: 0.4, ease: EASE }}
+          >
+            <ul className="px-4 py-4 sm:px-6">
+              {LINKS.map((l, i) => (
+                <motion.li
+                  key={l.href}
+                  initial={reduce ? false : { opacity: 0, x: -24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.45, ease: EASE, delay: 0.05 + i * 0.05 }}
+                >
+                  <Link
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={pathname === l.href ? "page" : undefined}
+                    className="block border-b border-bleu-200 py-3.5 font-titre text-2xl font-bold text-bleu-900"
+                  >
+                    {l.label}
+                  </Link>
+                </motion.li>
+              ))}
+              <li className="mt-5">
+                <Link
+                  href="/annexe#horaires"
+                  onClick={() => setOpen(false)}
+                  className="block rounded-2xl bg-jaune px-5 py-4 font-titre text-xl font-bold text-encre"
+                >
+                  Horaires et adresse
+                </Link>
+              </li>
+              <li className="mt-3">
+                <Link href="/" className="flex items-center gap-2.5 rounded-2xl bg-bleu-900 px-5 py-4 font-bold text-white">
+                  <BackArrow className="size-5" />
+                  Retour au site Tri-Marrant
+                </Link>
+              </li>
+            </ul>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+
       <motion.div
         aria-hidden
         style={{ scaleX: progress, originX: 0 }}
-        className={`absolute inset-x-0 bottom-0 h-1 bg-jaune transition-opacity duration-300 ${solid ? "opacity-100" : "opacity-0"}`}
+        className={`absolute inset-x-0 bottom-0 h-1 bg-jaune transition-opacity duration-300 ${solid && !open ? "opacity-100" : "opacity-0"}`}
       />
     </header>
   );

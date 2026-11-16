@@ -46,8 +46,8 @@ export default function BoutiquesPage() {
               <dl className="mt-8 divide-y divide-bleu-100 border-y border-bleu-100">
                 {BOUTIQUE.hours.map(({ day, hours }) => (
                   <div key={day} className="flex justify-between gap-4 py-3">
-                    <dt className={`font-bold ${hours === "Fermé" ? "text-encre/60" : "text-bleu-900"}`}>{day}</dt>
-                    <dd className={`tabular-nums ${hours === "Fermé" ? "text-encre/60" : ""}`}>{hours}</dd>
+                    <dt className={`font-bold ${hours === "Fermé" ? "text-encre/90" : "text-bleu-900"}`}>{day}</dt>
+                    <dd className={`tabular-nums ${hours === "Fermé" ? "text-encre/90" : ""}`}>{hours}</dd>
                   </div>
                 ))}
               </dl>
@@ -85,8 +85,8 @@ export default function BoutiquesPage() {
               <dl className="mt-8 divide-y divide-white/20 border-y border-white/20">
                 {ANNEXE_HOURS.map(({ day, hours }) => (
                   <div key={day} className="flex justify-between gap-4 py-3">
-                    <dt className={`font-bold ${hours === "Fermé" ? "text-white/70" : "text-jaune"}`}>{day}</dt>
-                    <dd className={`tabular-nums ${hours === "Fermé" ? "text-white/70" : ""}`}>{hours}</dd>
+                    <dt className={`font-bold ${hours === "Fermé" ? "text-white/90" : "text-jaune"}`}>{day}</dt>
+                    <dd className={`tabular-nums ${hours === "Fermé" ? "text-white/90" : ""}`}>{hours}</dd>
                   </div>
                 ))}
               </dl>

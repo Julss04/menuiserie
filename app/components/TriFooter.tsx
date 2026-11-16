@@ -15,7 +15,7 @@ export function TriFooter() {
           </p>
         </div>
 
-        <div className="text-[15px] leading-relaxed">
+        <div className="text-base leading-relaxed">
           <h2 className="mb-3 font-titre text-lg text-jaune">Nous trouver</h2>
           <p>
             {BOUTIQUE.street}
@@ -36,17 +36,17 @@ export function TriFooter() {
           </a>
         </div>
 
-        <nav aria-label="Pied de page" className="text-[15px]">
+        <nav aria-label="Pied de page" className="text-base">
           <h2 className="mb-3 font-titre text-lg text-jaune">Le site</h2>
           <ul className="space-y-2">
             <li>
               <Link href="/donner" className="hover:text-jaune">Donner des objets</Link>
             </li>
             <li>
-              <Link href="/boutiques" className="hover:text-jaune">Les boutiques</Link>
+              <Link href="/boutiques" className="hover:text-jaune">Horaires et adresses</Link>
             </li>
             <li>
-              <Link href="/association" className="hover:text-jaune">L&apos;association</Link>
+              <Link href="/association" className="hover:text-jaune">Qui sommes-nous</Link>
             </li>
             <li>
               <Link href="/benevole" className="hover:text-jaune">Devenir bénévole</Link>
@@ -57,7 +57,7 @@ export function TriFooter() {
           </ul>
         </nav>
       </div>
-      <p className="mx-auto mt-14 max-w-7xl border-t border-white/20 pt-6 text-sm text-white/80">
+      <p className="mx-auto mt-14 max-w-7xl border-t border-white/20 pt-6 text-sm text-white/90">
         © Ose Recyclerie · Association loi 1901 créée en 2019
       </p>
     </footer>

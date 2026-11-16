@@ -15,7 +15,7 @@ export function OpenStatus({ tone = "dark" }: { tone?: "dark" | "light" }) {
       }`}
     >
       <span
-        className={`relative size-2.5 rounded-full ${status.open ? "bg-jaune" : "bg-beige/60"}`}
+        className={`relative size-2.5 rounded-full ${status.open ? "bg-jaune" : tone === "dark" ? "bg-beige/60" : "bg-encre/40"}`}
         aria-hidden
       >
         {status.open && <span className="absolute inset-0 animate-ping rounded-full bg-jaune motion-reduce:hidden" />}

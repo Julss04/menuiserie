@@ -2,14 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { CONTACT } from "@/lib/tri-marrant";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring } from "framer-motion";
 
 const LINKS = [
-  { href: "/donner", label: "Donner" },
-  { href: "/boutiques", label: "Les boutiques" },
-  { href: "/association", label: "L'association" },
+  { href: "/", label: "Accueil" },
+  { href: "/donner", label: "Donner des objets" },
+  { href: "/boutiques", label: "Horaires et adresses" },
+  { href: "/association", label: "Qui sommes-nous" },
   { href: "/benevole", label: "Bénévolat" },
 ];
 
@@ -81,7 +83,7 @@ export function TriHeader() {
           />
         </Link>
 
-        <nav aria-label="Navigation principale" className={`hidden items-center gap-1 text-[15px] font-bold lg:flex ${tone}`}>
+        <nav aria-label="Navigation principale" className={`hidden items-center gap-0.5 text-base font-bold xl:flex ${tone}`}>
           {LINKS.map((l) => {
             const active = pathname === l.href;
             return (
@@ -106,8 +108,8 @@ export function TriHeader() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-2 lg:hidden">
-          <Link href="/annexe" className="inline-flex items-center gap-2 rounded-full bg-jaune py-2 pr-3.5 pl-3 text-sm font-bold text-encre">
+        <div className="flex items-center gap-2 xl:hidden">
+          <Link href="/annexe" className="hidden items-center gap-2 rounded-full bg-jaune py-2.5 pr-4 pl-3.5 font-bold text-encre sm:inline-flex">
             <BikeIcon className="h-3.5 w-6" />
             L&apos;Annexe
           </Link>
@@ -116,9 +118,8 @@ export function TriHeader() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="menu-mobile"
-            className={`flex size-11 items-center justify-center rounded-full ${solid ? "bg-bleu-900 text-white" : "bg-white/15 text-white"}`}
+            className={`flex h-12 items-center gap-2.5 rounded-full pr-5 pl-4 font-bold ${solid ? "bg-bleu-900 text-white" : "bg-white/15 text-white"}`}
           >
-            <span className="sr-only">{open ? "Fermer le menu" : "Ouvrir le menu"}</span>
             <svg viewBox="0 0 24 24" className="size-5" aria-hidden>
               <motion.path
                 fill="none"
@@ -135,6 +136,7 @@ export function TriHeader() {
                 animate={{ d: open ? "M6 18L18 6" : "M4 16H20" }}
               />
             </svg>
+            {open ? "Fermer" : "Menu"}
           </button>
         </div>
       </div>
@@ -144,7 +146,7 @@ export function TriHeader() {
           <motion.nav
             id="menu-mobile"
             aria-label="Navigation principale"
-            className="overflow-hidden border-t border-bleu-200 bg-beige lg:hidden"
+            className="max-h-[calc(100dvh-5rem)] overflow-y-auto border-t border-bleu-200 bg-beige xl:hidden"
             initial={reduce ? false : { height: 0 }}
             animate={{ height: "auto" }}
             exit={reduce ? undefined : { height: 0 }}
@@ -167,6 +169,24 @@ export function TriHeader() {
                   </Link>
                 </motion.li>
               ))}
+              <li className="mt-5">
+                <Link
+                  href="/annexe"
+                  className="flex items-center gap-3 rounded-2xl bg-jaune px-5 py-4 font-titre text-xl font-bold text-encre"
+                >
+                  <BikeIcon className="h-5 w-8" />
+                  L&apos;Annexe, l&apos;atelier vélo
+                </Link>
+              </li>
+              <li className="mt-3">
+                <a
+                  href={CONTACT.phoneHref}
+                  className="flex items-center justify-between gap-3 rounded-2xl bg-bleu-900 px-5 py-4 font-bold text-white"
+                >
+                  Nous appeler
+                  <span className="font-titre text-xl tabular-nums">{CONTACT.phone}</span>
+                </a>
+              </li>
             </ul>
           </motion.nav>
         )}
