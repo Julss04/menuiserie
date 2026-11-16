@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CountUp } from "../../components/CountUp";
+import { FourR } from "../../components/FourR";
 import { ArrowDisc } from "../../components/Hero";
 import { PageIntro } from "../../components/PageIntro";
 import { Reveal } from "../../components/Reveal";
@@ -64,7 +66,13 @@ export default function VelosPage() {
                       i < BIKE_PRICES.length - 1 ? "bg-bleu text-3xl text-white tabular-nums" : "self-center bg-bleu-100 text-lg text-bleu-900"
                     }`}
                   >
-                    {p}
+                    {i < BIKE_PRICES.length - 1 ? (
+                      <>
+                        <CountUp value={parseInt(p, 10)} /> €
+                      </>
+                    ) : (
+                      p
+                    )}
                   </li>
                 ))}
               </ul>
@@ -134,17 +142,9 @@ export default function VelosPage() {
             className="max-w-3xl text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em]"
             segments={[{ text: "Les 4R du vélo" }]}
           />
-          <dl className="mt-14 grid gap-10 border-t-2 border-bleu-900/80 pt-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-            {FOUR_R.map((r, i) => (
-              <Reveal key={r.title} delay={i * 0.08}>
-                <dt className="font-titre text-[clamp(2rem,3.6vw,2.8rem)] leading-none font-bold tracking-[-0.03em] text-bleu">
-                  <span className="text-orange">R</span>
-                  {r.title.slice(1)}
-                </dt>
-                <dd className="mt-4 text-[17px] leading-relaxed">{r.text}</dd>
-              </Reveal>
-            ))}
-          </dl>
+          <div className="mt-14 border-t-2 border-bleu-900/80 pt-10">
+            <FourR items={FOUR_R} />
+          </div>
         </div>
       </section>
 
