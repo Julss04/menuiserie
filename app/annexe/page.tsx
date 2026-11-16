@@ -33,17 +33,19 @@ export default function AnnexePage() {
             question: "Est-ce ouvert ?",
             answer: (
               <span className="text-bleu-900">
-                <OpenStatus tone="light" />
+                <OpenStatus tone="light" asLink={false} />
               </span>
             ),
             href: "/annexe#horaires",
             linkLabel: "Tous les horaires",
+            icon: "clock",
           },
           {
             question: "Où est l'atelier ?",
             answer: ADDRESS,
             href: `https://www.openstreetmap.org/search?query=${encodeURIComponent(ADDRESS)}`,
             linkLabel: "Voir sur la carte",
+            icon: "pin",
             external: true,
           },
           {
@@ -51,6 +53,7 @@ export default function AnnexePage() {
             answer: "Adhésion dès 10 € par an, puis prix libre",
             href: "/annexe#tarifs",
             linkLabel: "Voir les tarifs",
+            icon: "coin",
           },
         ]}
       />
