@@ -42,18 +42,21 @@ export default function Home() {
             ),
             href: "/boutiques",
             linkLabel: "Voir les horaires",
+            icon: "pin",
           },
           {
             question: "Je veux donner des objets",
             answer: "Du mercredi au vendredi, de 10h à 12h",
             href: "/donner",
             linkLabel: "Comment donner",
+            icon: "box",
           },
           {
             question: "Une question ? Appelez-nous",
             answer: <span className="tabular-nums">{CONTACT.phone}</span>,
             href: CONTACT.phoneHref,
             linkLabel: "Appeler",
+            icon: "phone",
             external: true,
           },
         ]}

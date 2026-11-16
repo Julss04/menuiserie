@@ -3,14 +3,15 @@
 import { openStatus } from "@/lib/schedule";
 import { useNow } from "@/lib/useNow";
 
-export function OpenStatus({ tone = "dark" }: { tone?: "dark" | "light" }) {
+export function OpenStatus({ tone = "dark", asLink = true }: { tone?: "dark" | "light"; asLink?: boolean }) {
   const now = useNow();
   if (!now) return <span className="inline-block h-6" aria-hidden />;
   const status = openStatus(now);
+  const Tag = asLink ? "a" : "span";
   return (
-    <a
-      href="#horaires"
-      className={`inline-flex items-center gap-2.5 font-bold underline-offset-4 hover:underline ${
+    <Tag
+      href={asLink ? "#horaires" : undefined}
+      className={`inline-flex items-center gap-2.5 font-bold underline-offset-4 ${asLink ? "hover:underline" : ""} ${
         tone === "dark" ? "text-white" : "text-bleu-900"
       }`}
     >
@@ -21,6 +22,6 @@ export function OpenStatus({ tone = "dark" }: { tone?: "dark" | "light" }) {
         {status.open && <span className="absolute inset-0 animate-ping rounded-full bg-jaune motion-reduce:hidden" />}
       </span>
       {status.label}
-    </a>
+    </Tag>
   );
 }

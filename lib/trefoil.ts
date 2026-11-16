@@ -1,7 +1,13 @@
 // Symbole Tri-Marrant (les trois boucles fléchées), extrait tel quel de la charte.
 // Ne pas modifier les tracés : la charte interdit de déformer le logotype.
 
-export const TREFOIL_VIEWBOX = "2.3 4.6 47.3 45.8";
+/**
+ * Rayon du cercle qui contient tout le symbole autour de son point jaune :
+ * le cadre de rotation doit être au moins aussi grand, sinon les boucles
+ * sont coupées quand le symbole tourne.
+ */
+export const TREFOIL_RADIUS = 26.8;
+
 export const TREFOIL_CENTER = { x: 25.95, y: 31.85 };
 
 export const TREFOIL_LOOPS = [

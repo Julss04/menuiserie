@@ -88,7 +88,7 @@ export function TriHero() {
         </motion.div>
 
         <div className="relative mx-auto aspect-square w-full max-w-[30rem]">
-          <Trefoil progress={scrollYProgress} className="absolute inset-[14%] h-auto w-[72%] text-beige" />
+          <Trefoil progress={scrollYProgress} className="absolute inset-[9%] h-auto w-[82%] text-beige" />
           {CYCLE.map((step, i) => (
             <motion.span
               key={step.label}
