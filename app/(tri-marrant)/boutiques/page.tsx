@@ -55,7 +55,7 @@ export default function BoutiquesPage() {
                 <a
                   href={mapLink(`${BOUTIQUE.street}, ${BOUTIQUE.city}`)}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="group inline-flex items-center gap-3 rounded-full bg-bleu-900 py-3 pr-3 pl-6 font-bold text-white hover:bg-bleu"
                 >
                   Voir sur la carte

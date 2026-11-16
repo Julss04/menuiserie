@@ -260,7 +260,7 @@ export default function AnnexePage() {
               <a
                 href={`https://www.openstreetmap.org/search?query=${encodeURIComponent(ADDRESS)}`}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="group mt-8 inline-flex items-center gap-3 rounded-full bg-jaune py-3 pr-3 pl-6 font-bold text-encre transition-colors hover:bg-jaune-600"
               >
                 Voir sur la carte

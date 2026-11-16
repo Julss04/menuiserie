@@ -31,7 +31,7 @@ export function TriFooter() {
               {CONTACT.email}
             </a>
           </p>
-          <a href={CONTACT.facebook} target="_blank" rel="noreferrer" className="mt-3 inline-block underline underline-offset-4 hover:text-jaune">
+          <a href={CONTACT.facebook} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block underline underline-offset-4 hover:text-jaune">
             Facebook
           </a>
         </div>
@@ -57,9 +57,13 @@ export function TriFooter() {
           </ul>
         </nav>
       </div>
-      <p className="mx-auto mt-14 max-w-7xl border-t border-white/20 pt-6 text-sm text-white/90">
-        © Ose Recyclerie · Association loi 1901 créée en 2019
-      </p>
+      <div className="mx-auto mt-14 flex max-w-7xl flex-col gap-3 border-t border-white/20 pt-6 text-sm text-white/90 sm:flex-row sm:items-center sm:justify-between">
+        <p>© Ose Recyclerie · Association loi 1901 créée en 2019</p>
+        <nav aria-label="Informations légales" className="flex flex-wrap gap-x-5 gap-y-1">
+          <Link href="/mentions-legales" className="hover:text-jaune">Mentions légales</Link>
+          <Link href="/confidentialite" className="hover:text-jaune">Confidentialité</Link>
+        </nav>
+      </div>
     </footer>
   );
 }
