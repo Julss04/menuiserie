@@ -24,7 +24,15 @@ const ROTATION_VIEWBOX = [
  * de tourner au rythme du défilement, comme le cycle qu'il représente.
  * Le tracé reste celui de la charte ; seule sa rotation est animée.
  */
-export function Trefoil({ progress, className }: { progress?: MotionValue<number>; className?: string }) {
+export function Trefoil({
+  progress,
+  className,
+  style,
+}: {
+  progress?: MotionValue<number>;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   const ref = useRef<SVGGElement>(null);
   const reduce = useReducedMotion();
   const intro = useMotionValue(reduce ? 0 : -240);
@@ -50,6 +58,7 @@ export function Trefoil({ progress, className }: { progress?: MotionValue<number
       viewBox={ROTATION_VIEWBOX}
       aria-hidden
       className={`overflow-visible ${className ?? ""}`}
+      style={style}
       initial={reduce ? false : { scale: 0.6, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
