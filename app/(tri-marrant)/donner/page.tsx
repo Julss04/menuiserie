@@ -54,7 +54,7 @@ export default function DonnerPage() {
                 <a href={CONTACT.phoneHref} className="font-bold text-bleu-900 underline underline-offset-4 tabular-nums">
                   {CONTACT.phone}
                 </a>
-                <span className="mx-2 text-encre/60" aria-hidden>
+                <span className="mx-2 text-encre/90" aria-hidden>
                   ·
                 </span>
                 <a href={`mailto:${CONTACT.email}`} className="font-bold text-bleu-900 underline underline-offset-4">

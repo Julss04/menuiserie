@@ -13,7 +13,7 @@ export default function AnnexeLayout({ children }: { children: React.ReactNode }
           <div className="p-1.5">
             <Image src="/brand/lannexe-logo-blanc.svg" alt="L'Annexe, Tri-Marrant.Ose" width={275} height={61} className="h-14 w-auto" />
           </div>
-          <div className="max-w-md text-[15px] leading-relaxed sm:text-right">
+          <div className="max-w-md text-base leading-relaxed sm:text-right">
             <p>
               Atelier vélo participatif de l&apos;association Tri-Marrant
               <br />

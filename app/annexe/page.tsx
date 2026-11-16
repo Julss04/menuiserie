@@ -5,6 +5,7 @@ import { ArrowDisc, Hero } from "../components/Hero";
 import { Marquee } from "../components/Marquee";
 import { OpenStatus } from "../components/OpenStatus";
 import { PriceTiles } from "../components/PriceTiles";
+import { QuickInfo } from "../components/QuickInfo";
 import { Reveal } from "../components/Reveal";
 import { CrossList } from "../components/CrossList";
 import { Stamp } from "../components/Stamp";
@@ -26,6 +27,33 @@ export default function AnnexePage() {
     <>
       <Hero />
       <Marquee words={MARQUEE} />
+      <QuickInfo
+        items={[
+          {
+            question: "Est-ce ouvert ?",
+            answer: (
+              <span className="text-bleu-900">
+                <OpenStatus tone="light" />
+              </span>
+            ),
+            href: "/annexe#horaires",
+            linkLabel: "Tous les horaires",
+          },
+          {
+            question: "Où est l'atelier ?",
+            answer: ADDRESS,
+            href: `https://www.openstreetmap.org/search?query=${encodeURIComponent(ADDRESS)}`,
+            linkLabel: "Voir sur la carte",
+            external: true,
+          },
+          {
+            question: "Combien ça coûte ?",
+            answer: "Adhésion dès 10 € par an, puis prix libre",
+            href: "/annexe#tarifs",
+            linkLabel: "Voir les tarifs",
+          },
+        ]}
+      />
 
       {/* L'atelier */}
       <section id="atelier" className="scroll-mt-20 px-4 py-24 sm:px-6 md:py-32">
@@ -175,7 +203,7 @@ export default function AnnexePage() {
             <div className="rounded-[1.75rem] bg-white p-7 shadow-[0_24px_60px_-40px_rgba(35,110,118,0.55)] sm:p-9">
               <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
                 <h3 className="text-2xl tracking-[-0.02em]">Prix conseillés des pièces de seconde main</h3>
-                <p className="text-sm font-bold text-encre/70">Pour vous donner un ordre d&apos;idée</p>
+                <p className="text-sm font-bold text-encre/90">Pour vous donner un ordre d&apos;idée</p>
               </div>
               <ul className="mt-6 grid border-t-2 border-bleu-900/80 sm:grid-cols-2 sm:gap-x-12">
                 {SUGGESTED_PRICES.map((p, i) => (

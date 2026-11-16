@@ -81,7 +81,7 @@ export function TriHero() {
                 href="/boutiques"
                 className="rounded-full border-2 border-white px-6 py-3 font-bold text-white transition-colors hover:bg-white hover:text-bleu-900"
               >
-                Venir chiner
+                Horaires et adresses
               </Link>
             </div>
           </motion.div>

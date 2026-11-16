@@ -20,7 +20,7 @@ export function WeekTimeline() {
     <div className="rounded-[1.75rem] bg-white p-5 shadow-[0_24px_60px_-40px_rgba(35,110,118,0.55)] sm:p-7">
       <div className="grid grid-cols-[5.5rem_1fr] gap-x-3 sm:grid-cols-[7rem_1fr]">
         <div />
-        <div className="relative mb-2 h-5 text-xs font-bold text-encre/70 tabular-nums">
+        <div className="relative mb-2 h-6 text-sm font-bold text-encre/90 tabular-nums">
           {TICKS.map((h) => (
             <span key={h} className="absolute -translate-x-1/2" style={{ left: pct(h) }}>
               {h}h
@@ -34,8 +34,8 @@ export function WeekTimeline() {
           return (
             <div key={day.name} className="contents">
               <div
-                className={`flex items-center gap-2 py-2.5 text-[15px] font-bold ${
-                  closed ? "text-encre/60" : "text-bleu-900"
+                className={`flex items-center gap-2 py-2.5 text-base font-bold ${
+                  closed ? "text-encre/90" : "text-bleu-900"
                 }`}
               >
                 {day.name}
@@ -49,14 +49,14 @@ export function WeekTimeline() {
                   <span key={h} aria-hidden className="absolute inset-y-1 w-px bg-bleu-200" style={{ left: pct(h) }} />
                 ))}
                 {closed && (
-                  <span className="absolute inset-y-0 left-3 flex items-center text-xs font-bold text-encre/70">
+                  <span className="absolute inset-y-0 left-3 flex items-center text-sm font-bold text-encre/90">
                     Fermé
                   </span>
                 )}
                 {day.blocks.map((b) => (
                   <motion.span
                     key={b.start}
-                    className="absolute inset-y-1 flex items-center justify-center rounded-full bg-bleu text-[11px] font-bold whitespace-nowrap text-white tabular-nums sm:text-xs"
+                    className="absolute inset-y-1 flex items-center justify-center rounded-full bg-bleu text-xs font-bold whitespace-nowrap text-white tabular-nums sm:text-sm"
                     style={{ left: pct(b.start), width: `calc(${pct(b.end)} - ${pct(b.start)})`, originX: 0 }}
                     initial={reduce ? false : { scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
@@ -81,7 +81,7 @@ export function WeekTimeline() {
         })}
       </div>
       {today !== undefined && (
-        <p className="mt-4 text-sm text-encre/80">
+        <p className="mt-4 text-sm text-encre/90">
           La ligne jaune, c&apos;est aujourd&apos;hui.
         </p>
       )}

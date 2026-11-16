@@ -44,9 +44,14 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Texte de base à 17 px : plus confortable à lire pour tout le monde. */
+    font-size: 106.25%;
   }
 
   body {
+    /* Les blocs qui glissent en apparaissant ne doivent jamais créer de défilement horizontal. */
+    overflow-x: clip;
+    line-height: 1.6;
     background: var(--color-beige);
     color: var(--color-encre);
     font-family: var(--font-texte);

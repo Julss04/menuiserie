@@ -26,7 +26,7 @@ export function PriceTiles({ tiers }: { tiers: Tier[] }) {
             <CountUp value={t.price} /> €
           </dd>
           {t.note && (
-            <dd className="mt-2 text-xs leading-snug text-encre/80 transition-colors group-hover:text-white/85 sm:text-sm">{t.note}</dd>
+            <dd className="mt-2 text-sm leading-snug text-encre/90 transition-colors group-hover:text-white/90">{t.note}</dd>
           )}
         </motion.div>
       ))}

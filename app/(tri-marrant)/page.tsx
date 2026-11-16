@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CountUp } from "../components/CountUp";
 import { ArrowDisc } from "../components/Hero";
 import { Marquee } from "../components/Marquee";
+import { QuickInfo } from "../components/QuickInfo";
 import { Reveal } from "../components/Reveal";
 import { ScrollWheel } from "../components/ScrollWheel";
 import { TextReveal } from "../components/TextReveal";
@@ -30,6 +31,33 @@ export default function Home() {
     <>
       <TriHero />
       <Marquee words={MARQUEE} />
+      <QuickInfo
+        items={[
+          {
+            question: "Où se trouve la boutique ?",
+            answer: (
+              <>
+                {BOUTIQUE.street}, {BOUTIQUE.city}
+              </>
+            ),
+            href: "/boutiques",
+            linkLabel: "Voir les horaires",
+          },
+          {
+            question: "Je veux donner des objets",
+            answer: "Du mercredi au vendredi, de 10h à 12h",
+            href: "/donner",
+            linkLabel: "Comment donner",
+          },
+          {
+            question: "Une question ? Appelez-nous",
+            answer: <span className="tabular-nums">{CONTACT.phone}</span>,
+            href: CONTACT.phoneHref,
+            linkLabel: "Appeler",
+            external: true,
+          },
+        ]}
+      />
 
       {/* Chiffres */}
       <section className="px-4 py-24 sm:px-6 md:py-32">
