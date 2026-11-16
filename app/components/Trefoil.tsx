@@ -9,7 +9,15 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { TREFOIL_CENTER, TREFOIL_DOT, TREFOIL_LOOPS, TREFOIL_VIEWBOX } from "@/lib/trefoil";
+import { TREFOIL_CENTER, TREFOIL_DOT, TREFOIL_LOOPS, TREFOIL_RADIUS } from "@/lib/trefoil";
+
+// Cadre carré centré sur le point jaune : le symbole y tourne sans jamais en sortir.
+const ROTATION_VIEWBOX = [
+  TREFOIL_CENTER.x - TREFOIL_RADIUS,
+  TREFOIL_CENTER.y - TREFOIL_RADIUS,
+  TREFOIL_RADIUS * 2,
+  TREFOIL_RADIUS * 2,
+].join(" ");
 
 /**
  * Le symbole Tri-Marrant en grand : il entre en tournant, puis continue
@@ -39,9 +47,9 @@ export function Trefoil({ progress, className }: { progress?: MotionValue<number
 
   return (
     <motion.svg
-      viewBox={TREFOIL_VIEWBOX}
+      viewBox={ROTATION_VIEWBOX}
       aria-hidden
-      className={className}
+      className={`overflow-visible ${className ?? ""}`}
       initial={reduce ? false : { scale: 0.6, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
