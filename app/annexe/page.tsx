@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ChainSteps } from "../components/ChainSteps";
 import { ArrowDisc, Hero } from "../components/Hero";
 import { Marquee } from "../components/Marquee";
+import { OpenStatus } from "../components/OpenStatus";
+import { PriceTiles } from "../components/PriceTiles";
 import { Reveal } from "../components/Reveal";
+import { CrossList } from "../components/CrossList";
+import { Stamp } from "../components/Stamp";
 import { TextReveal } from "../components/TextReveal";
 import { WeekTimeline } from "../components/WeekTimeline";
 import { ADHESION, NOT_HANDLED, SUGGESTED_PRICES, VISIT_STEPS } from "@/lib/annexe";
@@ -38,60 +43,48 @@ export default function AnnexePage() {
             </p>
           </Reveal>
 
-          <ol className="mt-14 border-t-2 border-bleu-900/80">
-            {VISIT_STEPS.map((step, i) => (
-              <li key={step.title} className="border-b border-bleu-300">
-                <Reveal delay={i * 0.05} from={-32}>
-                  <div className="grid items-baseline gap-x-8 gap-y-2 py-6 md:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,1.5fr)] md:py-8">
-                    <span className="flex size-11 items-center justify-center rounded-full border-[5px] border-jaune bg-bleu font-titre text-lg font-bold text-white tabular-nums">
-                      {i + 1}
-                    </span>
-                    <h3 className="text-[clamp(1.5rem,2.6vw,2.1rem)] leading-tight tracking-[-0.025em]">{step.title}</h3>
-                    <p className="max-w-xl text-[17px] leading-relaxed">{step.text}</p>
-                  </div>
-                </Reveal>
-              </li>
-            ))}
-          </ol>
+          <div className="mt-16">
+            <ChainSteps steps={VISIT_STEPS} />
+          </div>
         </div>
       </section>
 
       {/* Affluence et limites */}
-      <section className="bg-bleu-100 px-4 py-20 sm:px-6 md:py-28">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
-          <Reveal>
-            <div className="h-full rounded-[1.75rem] bg-white p-7 shadow-[0_24px_60px_-40px_rgba(35,110,118,0.55)] sm:p-9">
-              <h2 className="text-[clamp(1.6rem,3vw,2.2rem)] leading-tight tracking-[-0.025em]">Sans rendez-vous</h2>
-              <p className="mt-4 text-lg leading-relaxed">
+      <section className="relative isolate overflow-hidden bg-bleu px-4 py-24 text-white sm:px-6 md:py-32">
+        <svg aria-hidden viewBox="0 0 800 800" className="absolute -top-80 -left-72 -z-10 w-[60rem] max-w-none opacity-[0.12]">
+          {[380, 300, 220].map((r) => (
+            <circle key={r} cx={400} cy={400} r={r} fill="none" stroke="#fff1d7" strokeWidth={r === 380 ? 34 : 2} />
+          ))}
+        </svg>
+        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <TextReveal
+              className="text-[clamp(2.4rem,5.4vw,4.5rem)] leading-[1] tracking-[-0.035em] text-white"
+              segments={[{ text: "Sans" }, { text: "rendez-vous.", className: "text-jaune" }]}
+            />
+            <Reveal delay={0.15}>
+              <p className="mt-6 max-w-lg text-lg leading-relaxed">
                 Venez aux horaires d&apos;ouverture, avec votre vélo. Vous êtes nombreuses et nombreux à
-                venir et le nombre de places est limité : selon l&apos;affluence, il faudra peut-être
-                patienter un peu ou repasser.
+                venir et les places sont limitées : selon l&apos;affluence, il faudra peut-être patienter
+                un peu ou repasser.
               </p>
-              <p className="mt-4 text-lg leading-relaxed">
-                Venez donc avec votre patience et votre bonne humeur réparer votre vélo avec nous !
+              <p className="mt-4 max-w-lg text-lg leading-relaxed">
+                Venez donc avec votre patience et votre bonne humeur !
               </p>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1} from={48}>
-            <div className="h-full rounded-[1.75rem] bg-bleu-900 p-7 text-white sm:p-9">
-              <h2 className="text-[clamp(1.6rem,3vw,2.2rem)] leading-tight tracking-[-0.025em] text-white">
+              <div className="mt-8 inline-flex rounded-full bg-bleu-900/60 px-5 py-3">
+                <OpenStatus />
+              </div>
+            </Reveal>
+          </div>
+          <Reveal delay={0.1} from={56}>
+            <div className="rounded-[2rem] bg-beige p-8 text-encre shadow-[0_30px_80px_-40px_rgba(0,0,0,0.6)] sm:p-10">
+              <h2 className="text-[clamp(1.6rem,3vw,2.2rem)] leading-tight tracking-[-0.025em]">
                 Ce que l&apos;atelier ne fait pas
               </h2>
-              <p className="mt-4 text-lg leading-relaxed">Nous ne sommes pas équipés pour :</p>
-              <ul className="mt-4 space-y-3">
-                {NOT_HANDLED.map((item) => (
-                  <li key={item} className="flex gap-3 text-lg leading-snug">
-                    <span aria-hidden className="mt-1.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-orange">
-                      <svg viewBox="0 0 12 12" className="size-2.5">
-                        <path d="M3 3l6 6M9 3l-6 6" stroke="#fff" strokeWidth={2} strokeLinecap="round" />
-                      </svg>
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 leading-relaxed text-bleu-200">
-                Et l&apos;équipe ne répare pas à votre place : elle vous aide à le faire.
+              <p className="mt-3 mb-7 leading-relaxed">Nous ne sommes pas équipés pour :</p>
+              <CrossList items={NOT_HANDLED} />
+              <p className="mt-8 border-t border-bleu-200 pt-5 leading-relaxed">
+                Et l&apos;équipe ne répare pas à votre place : <strong className="text-bleu-900">elle vous aide à le faire.</strong>
               </p>
             </div>
           </Reveal>
@@ -101,35 +94,41 @@ export default function AnnexePage() {
       {/* Tarifs */}
       <section id="tarifs" className="scroll-mt-20 px-4 py-24 sm:px-6 md:py-32">
         <div className="mx-auto max-w-7xl">
-          <TextReveal
-            className="text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em]"
-            segments={[{ text: "Adhésion et prix libre" }]}
-          />
-          <Reveal delay={0.1}>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed">
-              Pour accéder à l&apos;atelier et aux pièces détachées, l&apos;adhésion à
-              l&apos;association est nécessaire. En adhérant, vous soutenez le projet. Ensuite,
-              l&apos;atelier fonctionne au prix libre.
-            </p>
-          </Reveal>
+          <div className="flex flex-wrap items-end justify-between gap-8">
+            <div>
+              <TextReveal
+                className="text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em]"
+                segments={[{ text: "Adhésion et prix libre" }]}
+              />
+              <Reveal delay={0.1}>
+                <p className="mt-6 max-w-2xl text-lg leading-relaxed">
+                  On adhère une fois par an pour accéder à l&apos;atelier, puis on participe librement à
+                  chaque passage.
+                </p>
+              </Reveal>
+            </div>
+            <Stamp text="Participation libre · Selon vos moyens · " center="Prix libre" className="hidden md:block" />
+          </div>
 
-          <div className="mt-14 grid gap-8 lg:grid-cols-2 lg:gap-12">
+          <div className="mt-14 grid gap-6 lg:grid-cols-[1.25fr_1fr]">
+            {/* Adhésion */}
             <Reveal>
-              <div className="rounded-[1.75rem] bg-white p-7 shadow-[0_24px_60px_-40px_rgba(35,110,118,0.55)] sm:p-9">
-                <h3 className="text-2xl tracking-[-0.02em]">L&apos;adhésion, pour un an</h3>
-                <dl className="mt-6 divide-y divide-bleu-100 border-y border-bleu-100">
-                  {ADHESION.map((a) => (
-                    <div key={a.name} className="flex items-baseline justify-between gap-6 py-4">
-                      <dt>
-                        <span className="font-bold text-bleu-900">{a.name}</span>
-                        {a.note && <span className="mt-0.5 block text-sm text-encre/80">{a.note}</span>}
-                      </dt>
-                      <dd className="font-titre text-3xl font-bold text-bleu tabular-nums">{a.price} €</dd>
-                    </div>
-                  ))}
-                </dl>
-                <p className="mt-5 leading-relaxed">
-                  L&apos;adhésion est aussi nécessaire pour acheter un{" "}
+              <div className="flex h-full flex-col rounded-[1.75rem] bg-white p-7 shadow-[0_24px_60px_-40px_rgba(35,110,118,0.55)] sm:p-9">
+                <div className="flex items-center gap-4">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-full border-[5px] border-jaune bg-bleu font-titre text-lg font-bold text-white">
+                    1
+                  </span>
+                  <h3 className="text-2xl tracking-[-0.02em]">L&apos;adhésion, pour un an</h3>
+                </div>
+                <p className="mt-4 leading-relaxed">
+                  Obligatoire pour accéder à l&apos;atelier et aux pièces détachées. En adhérant, vous
+                  soutenez le projet.
+                </p>
+                <div className="mt-7">
+                  <PriceTiles tiers={ADHESION} />
+                </div>
+                <p className="mt-auto pt-6 leading-relaxed">
+                  L&apos;adhésion permet aussi d&apos;acheter un{" "}
                   <Link href="/annexe/velos" className="font-bold text-bleu-900 underline underline-offset-4">
                     vélo d&apos;occasion
                   </Link>
@@ -138,42 +137,72 @@ export default function AnnexePage() {
               </div>
             </Reveal>
 
+            {/* Prix libre */}
             <Reveal delay={0.1} from={48}>
-              <div>
-                <h3 className="text-2xl tracking-[-0.02em]">Le prix libre</h3>
-                <p className="mt-3 text-lg leading-relaxed">
-                  L&apos;atelier vit de vos soutiens et de vos dons, en nature, en argent ou en temps.
-                  Une boîte à dons est à l&apos;accueil : vous participez selon vos envies et vos moyens,
-                  pour que le lieu continue d&apos;exister. Pour vous donner un ordre d&apos;idée, voici
-                  nos prix conseillés pour les pièces de seconde main.
+              <div className="flex h-full flex-col rounded-[1.75rem] bg-bleu-900 p-7 text-white sm:p-9">
+                <div className="flex items-center gap-4">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-full border-[5px] border-jaune bg-bleu font-titre text-lg font-bold text-white">
+                    2
+                  </span>
+                  <h3 className="text-2xl tracking-[-0.02em] text-white">Le prix libre</h3>
+                </div>
+                <p className="mt-4 text-lg leading-relaxed">
+                  L&apos;atelier vit de vos soutiens et de vos dons. Vous participez selon vos envies et
+                  vos moyens, pour que le lieu continue d&apos;exister.
                 </p>
-                <table className="mt-6 w-full text-left">
-                  <caption className="sr-only">Prix conseillés des pièces de seconde main</caption>
-                  <thead>
-                    <tr className="border-b-2 border-bleu-900/80 text-sm text-bleu-900">
-                      <th scope="col" className="py-2 font-bold">Pièce d&apos;occasion</th>
-                      <th scope="col" className="py-2 text-right font-bold">Prix conseillé</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-bleu-200">
-                    {SUGGESTED_PRICES.map((p) => (
-                      <tr key={p.item}>
-                        <td className="py-3">{p.item}</td>
-                        <td className="py-3 text-right font-bold text-bleu-900 tabular-nums">{p.price}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <p className="mt-6 leading-relaxed">
-                  <strong className="text-bleu-900">Les pièces neuves</strong>, il faudra les apporter :
-                  nous ne vendons que des pièces de seconde main, récupérées sur des vélos hors service et
-                  jugées aptes à une nouvelle vie. Chaque pièce n&apos;est pas compatible avec tous les
-                  vélos (marque, année, système de vitesses, filetage) : un·e technicien·ne vous aide à
-                  trouver la bonne.
-                </p>
+                <ul className="mt-6 grid gap-3">
+                  {[
+                    { title: "En argent", text: "Une boîte à dons vous attend à l'accueil." },
+                    { title: "En nature", text: "Un vélo, des pièces, des outils dont vous n'avez plus besoin." },
+                    { title: "En temps", text: "Rejoignez l'équipe de bénévoles." },
+                  ].map((d, i) => (
+                    <li key={d.title}>
+                      <Reveal delay={0.2 + i * 0.1} from={32}>
+                        <div className="rounded-2xl bg-white/10 px-5 py-4 transition-colors hover:bg-white/15">
+                          <span className="block font-bold text-jaune">{d.title}</span>
+                          <span className="mt-0.5 block leading-snug">{d.text}</span>
+                        </div>
+                      </Reveal>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </Reveal>
           </div>
+
+          {/* Prix conseillés */}
+          <Reveal className="mt-6">
+            <div className="rounded-[1.75rem] bg-white p-7 shadow-[0_24px_60px_-40px_rgba(35,110,118,0.55)] sm:p-9">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                <h3 className="text-2xl tracking-[-0.02em]">Prix conseillés des pièces de seconde main</h3>
+                <p className="text-sm font-bold text-encre/70">Pour vous donner un ordre d&apos;idée</p>
+              </div>
+              <ul className="mt-6 grid border-t-2 border-bleu-900/80 sm:grid-cols-2 sm:gap-x-12">
+                {SUGGESTED_PRICES.map((p, i) => (
+                  <li key={p.item} className="border-b border-bleu-200">
+                    <Reveal delay={0.05 * i} from={-24}>
+                      <div className="group flex items-baseline justify-between gap-4 py-3.5">
+                        <span className="transition-transform duration-300 group-hover:translate-x-1.5">{p.item}</span>
+                        <span className="font-bold whitespace-nowrap text-bleu-900 tabular-nums">{p.price}</span>
+                      </div>
+                    </Reveal>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-7 grid gap-4 sm:grid-cols-2 sm:gap-12">
+                <p className="leading-relaxed">
+                  <strong className="text-bleu-900">Pièces de seconde main</strong> : récupérées sur des
+                  vélos hors service et jugées aptes à une nouvelle vie. Toutes ne vont pas sur tous les
+                  vélos (marque, année, vitesses, filetage) : un·e technicien·ne vous aide à trouver la
+                  bonne.
+                </p>
+                <p className="leading-relaxed">
+                  <strong className="text-bleu-900">Pièces neuves</strong> : nous n&apos;en vendons pas.
+                  Il faudra les apporter, en les achetant chez un vélociste.
+                </p>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
