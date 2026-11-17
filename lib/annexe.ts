@@ -52,7 +52,7 @@ export const NOT_HANDLED = [
 
 /**
  * Grille tarifaire solidaire des pièces de seconde main, vendues à l'unité.
- * Source : budget solidaire de l'atelier (feuille « Tarifs solidaires »).
+ * Source : budget prévisionnel mis à jour (feuille « Grille pièces »).
  * Ce sont des PROPOSITIONS, à valider par l'association avant publication
  * définitive. Un prix `null` n'est pas affiché ; ajouter, retirer ou renommer
  * des lignes est libre.
@@ -64,64 +64,104 @@ export const PIECE_GROUPS: {
   {
     family: "Pneus et roues",
     items: [
-      { item: "Chambre à air", price: 3 },
+      { item: "Chambre à air", price: 4, note: "Selon dimensions et état" },
+      { item: "Pneu vélo", price: 10, note: "Occasion, selon état" },
+      { item: "Pneu VTT", price: 12, note: "Occasion, selon état" },
       {
-        item: "Pneu vélo ville",
-        price: 5,
-        note: "Selon l'état et la dimension",
+        item: "Roue avant d'occasion",
+        price: 15,
+        note: "Contrôlée avant mise à disposition",
       },
-      { item: "Pneu VTT", price: 6, note: "Selon l'état et la dimension" },
-      { item: "Roue avant", price: 8, note: "Occasion, contrôlée" },
-      { item: "Roue arrière", price: 10, note: "Occasion, contrôlée" },
-      { item: "Fond de jante", price: 1 },
+      {
+        item: "Roue arrière d'occasion",
+        price: 18,
+        note: "Contrôlée avant mise à disposition",
+      },
+      { item: "Fond de jante", price: 1, note: "Selon disponibilité" },
     ],
   },
   {
     family: "Freinage",
     items: [
-      { item: "Patins de frein (paire)", price: 2 },
-      { item: "Câble de frein", price: 2 },
-      { item: "Levier de frein", price: 3 },
-      { item: "Étrier de frein", price: 4 },
-      { item: "Disque de frein", price: 5 },
+      {
+        item: "Patins de frein (paire)",
+        price: 4,
+        note: "Contrôle de l'état obligatoire",
+      },
+      {
+        item: "Câble de frein",
+        price: 2,
+        note: "Selon longueur et compatibilité",
+      },
+      {
+        item: "Paire de câbles de frein",
+        price: 3,
+        note: "Selon compatibilité",
+      },
+      { item: "Levier de frein", price: 5, note: "Occasion, contrôlé" },
+      { item: "Étrier de frein", price: 8, note: "Vérifier le fonctionnement" },
+      { item: "Disque de frein", price: 8, note: "Contrôle de l'usure" },
     ],
   },
   {
     family: "Transmission",
     items: [
-      { item: "Chaîne", price: 5 },
-      { item: "Cassette", price: 6, note: "Selon état et nombre de vitesses" },
-      { item: "Pignon", price: 2 },
-      { item: "Dérailleur avant", price: 5 },
-      { item: "Dérailleur arrière", price: 6 },
-      { item: "Manette de vitesse", price: 4 },
-      { item: "Pédalier", price: 8 },
-      { item: "Pédale (l'unité)", price: 2 },
+      {
+        item: "Chaîne",
+        price: 8,
+        note: "Vérifier l'usure et la compatibilité",
+      },
+      { item: "Cassette", price: 12, note: "Selon état et nombre de vitesses" },
+      { item: "Pignon", price: 3, note: "Selon disponibilité" },
+      { item: "Dérailleur avant", price: 8, note: "Occasion, contrôlé" },
+      { item: "Dérailleur arrière", price: 10, note: "Occasion, contrôlé" },
+      { item: "Manette de vitesse", price: 7, note: "Occasion, contrôlée" },
+      { item: "Pédalier", price: 15, note: "Occasion, contrôlé" },
+      { item: "Pédale (unité)", price: 4, note: "Prix à l'unité" },
     ],
   },
   {
     family: "Accessoires",
     items: [
-      { item: "Sonnette", price: 1 },
-      { item: "Éclairage avant", price: 3 },
-      { item: "Éclairage arrière", price: 2 },
-      { item: "Catadioptre", price: 1 },
-      { item: "Poignées (paire)", price: 2 },
-      { item: "Selle", price: 4 },
-      { item: "Béquille", price: 3 },
-      { item: "Porte-bidon", price: 2 },
-      { item: "Garde-boue", price: 3 },
-      { item: "Antivol simple", price: 3, note: "Selon état" },
+      { item: "Sonnette", price: 2, note: "Selon disponibilité" },
+      { item: "Éclairage avant", price: 5, note: "Vérifier le fonctionnement" },
+      {
+        item: "Éclairage arrière",
+        price: 4,
+        note: "Vérifier le fonctionnement",
+      },
+      { item: "Catadioptre", price: 1, note: "Selon disponibilité" },
+      { item: "Poignées (paire)", price: 3, note: "Selon état" },
+      { item: "Selle", price: 8, note: "Occasion, contrôlée" },
+      { item: "Béquille", price: 5, note: "Selon compatibilité" },
+      { item: "Porte-bidon", price: 3, note: "Selon disponibilité" },
+      { item: "Garde-boue", price: 5, note: "Selon état et compatibilité" },
+      { item: "Antivol simple", price: 5, note: "Selon état" },
     ],
   },
   {
     family: "Petites fournitures",
     items: [
-      { item: "Rustines", price: 1 },
+      { item: "Rustines", price: 1, note: "Selon quantité" },
       {
-        item: "Visserie et petits accessoires",
+        item: "Dégrippant (petite quantité)",
         price: 1,
-        note: "Quand disponibles",
+        note: "Petite quantité",
+      },
+      {
+        item: "Lubrifiant chaîne (petite quantité)",
+        price: 1,
+        note: "Petite quantité",
+      },
+      {
+        item: "Visserie / petits accessoires",
+        price: 1.5,
+        note: "Selon type et quantité",
+      },
+      {
+        item: "Câble et gaine (ensemble)",
+        price: 4,
+        note: "Selon longueur et compatibilité",
       },
     ],
   },
