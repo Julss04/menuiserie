@@ -301,7 +301,11 @@ export default function AnnexePage() {
                                       {p.item}
                                     </span>
                                     <span className="font-bold whitespace-nowrap text-bleu-900 tabular-nums">
-                                      <CountUp value={p.price!} />
+                                      {Number.isInteger(p.price) ? (
+                                        <CountUp value={p.price!} />
+                                      ) : (
+                                        p.price!.toLocaleString("fr-FR")
+                                      )}
                                       &nbsp;€
                                     </span>
                                   </div>
