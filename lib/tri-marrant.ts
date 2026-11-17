@@ -75,3 +75,29 @@ export const VOLUNTEER_TASKS = [
   "Entretenir les vélos",
   "Tenir la caisse",
 ];
+
+/**
+ * Informations légales obligatoires (mentions légales, RGPD).
+ * À COMPLÉTER PAR L'ASSOCIATION : les valeurs "TODO" sont les seules qu'elle
+ * doit renseigner avant la mise en ligne. L'hébergeur est déjà connu (Vercel).
+ */
+export const LEGAL = {
+  // Raison sociale exacte de l'association loi 1901.
+  orgName: "Ose Recyclerie",
+  // Adresse du siège social.
+  orgAddress: "TODO — adresse du siège social de l'association",
+  // Numéro SIRET (14 chiffres), si l'association en a un.
+  siret: "TODO — numéro SIRET",
+  // Numéro RNA (identifiant d'association, format W + 9 chiffres).
+  rna: "TODO — numéro RNA (W…)",
+  // Personne responsable du contenu du site (souvent la présidence).
+  publisher: "TODO — nom du directeur ou de la directrice de la publication",
+  // Dernière mise à jour des pages légales.
+  updatedAt: "2026-11-16",
+  // Hébergeur du site (connu).
+  host: {
+    name: "Vercel Inc.",
+    address: "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
+    url: "https://vercel.com",
+  },
+} as const;

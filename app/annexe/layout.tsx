@@ -27,6 +27,10 @@ export default function AnnexeLayout({ children }: { children: React.ReactNode }
                 Tri-Marrant, la ressourcerie
               </Link>
             </p>
+            <p className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm text-white/90 sm:justify-end">
+              <Link href="/mentions-legales" className="hover:text-jaune">Mentions légales</Link>
+              <Link href="/confidentialite" className="hover:text-jaune">Confidentialité</Link>
+            </p>
           </div>
         </div>
       </footer>

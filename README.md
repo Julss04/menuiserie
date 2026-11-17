@@ -19,7 +19,7 @@ Autres commandes : `npm run lint` (vérification du code), `npm run build` (vers
 |---|---|
 | `app/(tri-marrant)/` | Les pages Tri-Marrant : accueil, `donner`, `boutiques`, `association`, `benevole`, avec leur en-tête et pied de page communs. |
 | `app/annexe/` | L'Annexe : l'atelier (`page.tsx`) et les vélos d'occasion (`velos/page.tsx`), avec leur en-tête et pied de page. |
-| `lib/annexe.ts` | Adhésion, prix conseillés, prix des vélos, déroulé d'une venue, ce que l'atelier ne fait pas : c'est ici qu'on les modifie. |
+| `lib/annexe.ts` | Adhésion, grille tarifaire solidaire des pièces (`PIECE_GROUPS`, propositions à valider), prix des vélos, déroulé d'une venue, ce que l'atelier ne fait pas : c'est ici qu'on les modifie. |
 | `app/components/` | Les morceaux de pages : en-têtes, symbole animé, vélo animé, bandeaux, frise, formulaire… |
 | `lib/tri-marrant.ts` | Adresse, horaires, contacts et chiffres de Tri-Marrant : c'est ici qu'on les modifie. |
 | `app/globals.css` | Les couleurs et typographies de la charte. |

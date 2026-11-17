@@ -35,8 +35,8 @@ export const VISIT_STEPS = [
     text: "Les pièces de seconde main viennent de vélos hors service. On vous aide à trouver celle qui va sur votre vélo.",
   },
   {
-    title: "Vous participez librement",
-    text: "Une boîte à dons vous attend à l'accueil : vous donnez selon vos moyens, en vous aidant des prix conseillés.",
+    title: "Vous payez vos pièces",
+    text: "L'adhésion donne accès à l'atelier. Ensuite, vous ne réglez que les pièces dont vous avez eu besoin, à l'unité, selon la grille tarifaire.",
   },
 ];
 
@@ -47,17 +47,77 @@ export const NOT_HANDLED = [
   "Les trottinettes électriques",
 ];
 
-/** Prix conseillés pour les pièces d'occasion (le prix reste libre). */
-export const SUGGESTED_PRICES = [
-  { item: "Chambre à air", price: "2 €" },
-  { item: "Patins ou plaquettes de frein", price: "2 €" },
-  { item: "Câble et gaine", price: "2 €" },
-  { item: "Selle, paire de pédales", price: "3 à 5 €" },
-  { item: "Pneu", price: "5 €" },
-  { item: "Chaîne", price: "5 €" },
-  { item: "Dérailleur", price: "5 à 10 €" },
-  { item: "Roue complète", price: "10 à 15 €" },
+/**
+ * Grille tarifaire solidaire des pièces de seconde main, vendues à l'unité.
+ * Source : budget solidaire de l'atelier (feuille « Tarifs solidaires »).
+ * Ce sont des PROPOSITIONS, à valider par l'association avant publication
+ * définitive. Un prix `null` n'est pas affiché ; ajouter, retirer ou renommer
+ * des lignes est libre.
+ */
+export const PIECE_GROUPS: {
+  family: string;
+  items: { item: string; price: number | null; note?: string }[];
+}[] = [
+  {
+    family: "Pneus et roues",
+    items: [
+      { item: "Chambre à air", price: 3 },
+      { item: "Pneu vélo ville", price: 5, note: "Selon l'état et la dimension" },
+      { item: "Pneu VTT", price: 6, note: "Selon l'état et la dimension" },
+      { item: "Roue avant", price: 8, note: "Occasion, contrôlée" },
+      { item: "Roue arrière", price: 10, note: "Occasion, contrôlée" },
+      { item: "Fond de jante", price: 1 },
+    ],
+  },
+  {
+    family: "Freinage",
+    items: [
+      { item: "Patins de frein (paire)", price: 2 },
+      { item: "Câble de frein", price: 2 },
+      { item: "Levier de frein", price: 3 },
+      { item: "Étrier de frein", price: 4 },
+      { item: "Disque de frein", price: 5 },
+    ],
+  },
+  {
+    family: "Transmission",
+    items: [
+      { item: "Chaîne", price: 5 },
+      { item: "Cassette", price: 6, note: "Selon état et nombre de vitesses" },
+      { item: "Pignon", price: 2 },
+      { item: "Dérailleur avant", price: 5 },
+      { item: "Dérailleur arrière", price: 6 },
+      { item: "Manette de vitesse", price: 4 },
+      { item: "Pédalier", price: 8 },
+      { item: "Pédale (l'unité)", price: 2 },
+    ],
+  },
+  {
+    family: "Accessoires",
+    items: [
+      { item: "Sonnette", price: 1 },
+      { item: "Éclairage avant", price: 3 },
+      { item: "Éclairage arrière", price: 2 },
+      { item: "Catadioptre", price: 1 },
+      { item: "Poignées (paire)", price: 2 },
+      { item: "Selle", price: 4 },
+      { item: "Béquille", price: 3 },
+      { item: "Porte-bidon", price: 2 },
+      { item: "Garde-boue", price: 3 },
+      { item: "Antivol simple", price: 3, note: "Selon état" },
+    ],
+  },
+  {
+    family: "Petites fournitures",
+    items: [
+      { item: "Rustines", price: 1 },
+      { item: "Visserie et petits accessoires", price: 1, note: "Quand disponibles" },
+    ],
+  },
 ];
+
+/** Vrai dès qu'au moins un prix de la grille est renseigné. */
+export const HAS_PIECE_PRICES = PIECE_GROUPS.some((g) => g.items.some((i) => i.price !== null));
 
 /** Vente de vélos recyclés. */
 export const BIKE_PRICES = ["40 €", "50 €", "Plus, selon l'état et la qualité du vélo"];
