@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CountUp } from "../components/CountUp";
 import { ChainSteps } from "../components/ChainSteps";
 import { ArrowDisc, Hero } from "../components/Hero";
 import { Marquee } from "../components/Marquee";
@@ -277,46 +278,55 @@ export default function AnnexePage() {
               {HAS_PIECE_PRICES ? (
                 <>
                   <div className="mt-6 grid gap-x-12 gap-y-8 sm:grid-cols-2">
-                    {PIECE_GROUPS.map((g) => (
-                      <div key={g.family}>
+                    {PIECE_GROUPS.map((g, gi) => (
+                      <Reveal
+                        key={g.family}
+                        delay={0.08 * (gi % 2)}
+                        from={gi % 2 ? 40 : -40}
+                      >
                         <h4 className="font-titre text-lg font-bold text-bleu-900">
                           {g.family}
                         </h4>
                         <ul className="mt-2 border-t-2 border-bleu-900/80">
                           {g.items
                             .filter((p) => p.price !== null)
-                            .map((p) => (
+                            .map((p, i) => (
                               <li
                                 key={p.item}
                                 className="group border-b border-bleu-200 py-3"
                               >
-                                <div className="flex items-baseline justify-between gap-4">
-                                  <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-                                    {p.item}
-                                  </span>
-                                  <span className="font-bold whitespace-nowrap text-bleu-900 tabular-nums">
-                                    {p.price}&nbsp;€
-                                  </span>
-                                </div>
-                                {p.note && (
-                                  <p className="mt-0.5 text-sm text-encre/75">
-                                    {p.note}
-                                  </p>
-                                )}
+                                <Reveal delay={0.05 * i} from={-24}>
+                                  <div className="flex items-baseline justify-between gap-4">
+                                    <span className="transition-transform duration-300 group-hover:translate-x-1.5">
+                                      {p.item}
+                                    </span>
+                                    <span className="font-bold whitespace-nowrap text-bleu-900 tabular-nums">
+                                      <CountUp value={p.price!} />
+                                      &nbsp;€
+                                    </span>
+                                  </div>
+                                  {p.note && (
+                                    <p className="mt-0.5 text-sm text-encre/75">
+                                      {p.note}
+                                    </p>
+                                  )}
+                                </Reveal>
                               </li>
                             ))}
                         </ul>
-                      </div>
+                      </Reveal>
                     ))}
                   </div>
-                  <p className="mt-6 rounded-2xl bg-jaune-200 p-5 leading-relaxed">
-                    <strong className="text-bleu-900">
-                      Pièces de sécurité
-                    </strong>{" "}
-                    (freins, roues, direction) : l&apos;encadrant les contrôle
-                    avant de vous les remettre. Une pièce usée ou douteuse
-                    n&apos;est jamais remise en circulation.
-                  </p>
+                  <Reveal className="mt-6" from={-40}>
+                    <p className="rounded-2xl bg-jaune-200 p-5 leading-relaxed">
+                      <strong className="text-bleu-900">
+                        Pièces de sécurité
+                      </strong>{" "}
+                      (freins, roues, direction) : l&apos;encadrant les contrôle
+                      avant de vous les remettre. Une pièce usée ou douteuse
+                      n&apos;est jamais remise en circulation.
+                    </p>
+                  </Reveal>
                 </>
               ) : (
                 <div className="mt-6 flex flex-col gap-5 rounded-2xl bg-jaune-200 p-6 sm:flex-row sm:items-center sm:gap-8 sm:p-8">
