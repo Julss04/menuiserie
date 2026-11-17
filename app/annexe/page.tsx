@@ -24,7 +24,7 @@ import { ADDRESS } from "@/lib/schedule";
 export const metadata: Metadata = {
   title: "L'Annexe, atelier vélo participatif",
   description:
-    "Réparez vous-même votre vélo, aidé·e par l'équipe, à L'Annexe, l'atelier d'autoréparation de Tri-Marrant à Granville. Adhésion annuelle dès 10 €, puis pièces de seconde main payées à l'unité.",
+    "Réparez vous-même votre vélo, aidé·e par l'équipe, à L'Annexe, l'atelier d'autoréparation de Tri-Marrant à Granville. Adhésion annuelle de 9 €, puis pièces de seconde main payées à l'unité.",
 };
 
 const MARQUEE = [
@@ -63,7 +63,7 @@ export default function AnnexePage() {
           },
           {
             question: "Combien ça coûte ?",
-            answer: "Adhésion dès 10 € par an, puis chaque pièce à l'unité",
+            answer: "Adhésion de 9 € par an, puis chaque pièce selon la grille",
             href: "/annexe#tarifs",
             linkLabel: "Voir les tarifs",
             icon: "coin",

@@ -11,7 +11,9 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export function PriceTiles({ tiers }: { tiers: Tier[] }) {
   const reduce = useReducedMotion();
   return (
-    <dl className="grid grid-cols-2 gap-3">
+    <dl
+      className={`grid gap-3 ${tiers.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}
+    >
       {tiers.map((t, i) => (
         <motion.div
           key={t.name}
@@ -21,12 +23,16 @@ export function PriceTiles({ tiers }: { tiers: Tier[] }) {
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.6, ease: EASE, delay: i * 0.08 }}
         >
-          <dt className="text-sm font-bold text-bleu-900 transition-colors group-hover:text-jaune sm:text-base">{t.name}</dt>
+          <dt className="text-sm font-bold text-bleu-900 transition-colors group-hover:text-jaune sm:text-base">
+            {t.name}
+          </dt>
           <dd className="mt-1 font-titre text-[clamp(2rem,4vw,2.75rem)] leading-none font-bold whitespace-nowrap text-bleu transition-colors group-hover:text-white">
             <CountUp value={t.price} /> €
           </dd>
           {t.note && (
-            <dd className="mt-2 text-sm leading-snug text-encre/90 transition-colors group-hover:text-white/90">{t.note}</dd>
+            <dd className="mt-2 text-sm leading-snug text-encre/90 transition-colors group-hover:text-white/90">
+              {t.note}
+            </dd>
           )}
         </motion.div>
       ))}

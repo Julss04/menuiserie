@@ -5,11 +5,14 @@
  */
 
 /** Adhésion annuelle à l'association, obligatoire pour l'atelier, les pièces et l'achat d'un vélo. */
+export const ADHESION_PRICE = 9;
+
 export const ADHESION = [
-  { name: "Tarif plein", price: 15 },
-  { name: "Tarif réduit", price: 10, note: "Étudiant·es, demandeurs d'emploi, bénéficiaires des minima sociaux" },
-  { name: "Tarif famille", price: 35 },
-  { name: "Tarif de soutien", price: 40 },
+  {
+    name: "Adhésion annuelle",
+    price: ADHESION_PRICE,
+    note: "Valable un an. Les pièces se paient en plus, selon la grille tarifaire.",
+  },
 ];
 
 /** Déroulé d'une venue à l'atelier. */
@@ -62,7 +65,11 @@ export const PIECE_GROUPS: {
     family: "Pneus et roues",
     items: [
       { item: "Chambre à air", price: 3 },
-      { item: "Pneu vélo ville", price: 5, note: "Selon l'état et la dimension" },
+      {
+        item: "Pneu vélo ville",
+        price: 5,
+        note: "Selon l'état et la dimension",
+      },
       { item: "Pneu VTT", price: 6, note: "Selon l'état et la dimension" },
       { item: "Roue avant", price: 8, note: "Occasion, contrôlée" },
       { item: "Roue arrière", price: 10, note: "Occasion, contrôlée" },
@@ -111,21 +118,43 @@ export const PIECE_GROUPS: {
     family: "Petites fournitures",
     items: [
       { item: "Rustines", price: 1 },
-      { item: "Visserie et petits accessoires", price: 1, note: "Quand disponibles" },
+      {
+        item: "Visserie et petits accessoires",
+        price: 1,
+        note: "Quand disponibles",
+      },
     ],
   },
 ];
 
 /** Vrai dès qu'au moins un prix de la grille est renseigné. */
-export const HAS_PIECE_PRICES = PIECE_GROUPS.some((g) => g.items.some((i) => i.price !== null));
+export const HAS_PIECE_PRICES = PIECE_GROUPS.some((g) =>
+  g.items.some((i) => i.price !== null),
+);
 
 /** Vente de vélos recyclés. */
-export const BIKE_PRICES = ["40 €", "50 €", "Plus, selon l'état et la qualité du vélo"];
+export const BIKE_PRICES = [
+  "40 €",
+  "50 €",
+  "Plus, selon l'état et la qualité du vélo",
+];
 
 /** Les « 4R » du réemploi des vélos. */
 export const FOUR_R = [
-  { title: "Réduire", text: "Moins de vélos détruits chaque année : on les collecte et on les trie au lieu de les jeter." },
-  { title: "Réemployer", text: "Les pièces de seconde main démontées sur les vélos non réparables repartent sur d'autres vélos." },
-  { title: "Réparer", text: "Grâce à l'atelier, les vélos sont remis en état et repartent en circulation." },
-  { title: "Recycler", text: "Ce qui ne sert plus part en matières premières : fer, aluminium, caoutchouc." },
+  {
+    title: "Réduire",
+    text: "Moins de vélos détruits chaque année : on les collecte et on les trie au lieu de les jeter.",
+  },
+  {
+    title: "Réemployer",
+    text: "Les pièces de seconde main démontées sur les vélos non réparables repartent sur d'autres vélos.",
+  },
+  {
+    title: "Réparer",
+    text: "Grâce à l'atelier, les vélos sont remis en état et repartent en circulation.",
+  },
+  {
+    title: "Recycler",
+    text: "Ce qui ne sert plus part en matières premières : fer, aluminium, caoutchouc.",
+  },
 ];

@@ -79,7 +79,7 @@ export default function VelosPage() {
               <div className="mt-8 rounded-2xl bg-jaune-200 p-5">
                 <p className="font-bold text-bleu-900">Seule condition : être adhérent·e de l&apos;association</p>
                 <p className="mt-1 leading-relaxed">
-                  Adhésion de 10 à 40 € pour un an, qui donne aussi accès à l&apos;atelier.{" "}
+                  Adhésion de 9 € pour un an, qui donne aussi accès à l&apos;atelier.{" "}
                   <Link href="/annexe#tarifs" className="font-bold text-bleu-900 underline underline-offset-4">
                     Voir les tarifs
                   </Link>
