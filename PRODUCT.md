@@ -12,7 +12,7 @@ Two audiences: (1) local residents in and around Granville who own or want a bik
 
 ## Product Purpose
 
-The website of Tri-Marrant, the reuse shop (ressourcerie) run by the association Ose Recyclerie in the Granville area: donating objects, visiting the shop, the association's story and values, volunteering. L'Annexe, a self-repair bike workshop ("atelier d'autoréparation") in Granville, is a clearly visible sub-section at `/annexe` (highlighted in the main navigation and on the home page), with a second page `/annexe/velos` for buying and donating used bikes. It copies the model of the Maison du vélo de Caen (association Vélisol'): participatory only, yearly membership required (15 / 10 / 35 / 40 €), pay-what-you-can with suggested prices for second-hand parts, walk-in without booking, used bikes sold 40 €, 50 € or more to members.
+The website of Tri-Marrant, the reuse shop (ressourcerie) run by the association Ose Recyclerie in the Granville area: donating objects, visiting the shop, the association's story and values, volunteering. L'Annexe, a self-repair bike workshop ("atelier d'autoréparation") in Granville, is a clearly visible sub-section at `/annexe` (highlighted in the main navigation and on the home page), with a second page `/annexe/velos` for buying and donating used bikes. It copies the model of the Maison du vélo de Caen (association Vélisol'): participatory only, yearly membership required (15 / 10 / 35 / 40 €), then each second-hand part paid per unit from a price grid (grid not yet defined by the association: `PIECE_PRICES` in `lib/annexe.ts`, shown as « en préparation » until filled), walk-in without booking, used bikes sold 40 €, 50 € or more to members.
 
 ## Positioning
 

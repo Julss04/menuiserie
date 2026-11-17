@@ -35,8 +35,8 @@ export const VISIT_STEPS = [
     text: "Les pièces de seconde main viennent de vélos hors service. On vous aide à trouver celle qui va sur votre vélo.",
   },
   {
-    title: "Vous participez librement",
-    text: "Une boîte à dons vous attend à l'accueil : vous donnez selon vos moyens, en vous aidant des prix conseillés.",
+    title: "Vous payez vos pièces",
+    text: "L'adhésion donne accès à l'atelier. Ensuite, vous ne réglez que les pièces dont vous avez eu besoin, à l'unité, selon la grille tarifaire.",
   },
 ];
 
@@ -47,17 +47,29 @@ export const NOT_HANDLED = [
   "Les trottinettes électriques",
 ];
 
-/** Prix conseillés pour les pièces d'occasion (le prix reste libre). */
-export const SUGGESTED_PRICES = [
-  { item: "Chambre à air", price: "2 €" },
-  { item: "Patins ou plaquettes de frein", price: "2 €" },
-  { item: "Câble et gaine", price: "2 €" },
-  { item: "Selle, paire de pédales", price: "3 à 5 €" },
-  { item: "Pneu", price: "5 €" },
-  { item: "Chaîne", price: "5 €" },
-  { item: "Dérailleur", price: "5 à 10 €" },
-  { item: "Roue complète", price: "10 à 15 €" },
+/**
+ * Grille tarifaire des pièces de seconde main, vendues à l'unité.
+ *
+ * À COMPLÉTER PAR L'ASSOCIATION : remplacer chaque `price: null` par le prix
+ * voulu, par exemple `"2 €"` ou `"5 à 10 €"`. Tant qu'aucun prix n'est
+ * renseigné, le site affiche « grille en préparation » à la place du tableau ;
+ * dès qu'un prix est renseigné, le tableau apparaît. Ajouter, retirer ou
+ * renommer des lignes est libre.
+ */
+export const PIECE_PRICES: { item: string; price: string | null }[] = [
+  { item: "Chambre à air", price: null },
+  { item: "Pneu", price: null },
+  { item: "Patins ou plaquettes de frein", price: null },
+  { item: "Câble et gaine", price: null },
+  { item: "Chaîne", price: null },
+  { item: "Dérailleur", price: null },
+  { item: "Selle", price: null },
+  { item: "Paire de pédales", price: null },
+  { item: "Roue complète", price: null },
 ];
+
+/** Vrai dès qu'au moins un prix de la grille est renseigné. */
+export const HAS_PIECE_PRICES = PIECE_PRICES.some((p) => p.price !== null);
 
 /** Vente de vélos recyclés. */
 export const BIKE_PRICES = ["40 €", "50 €", "Plus, selon l'état et la qualité du vélo"];

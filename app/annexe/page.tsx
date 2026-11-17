@@ -11,16 +11,16 @@ import { CrossList } from "../components/CrossList";
 import { Stamp } from "../components/Stamp";
 import { TextReveal } from "../components/TextReveal";
 import { WeekTimeline } from "../components/WeekTimeline";
-import { ADHESION, NOT_HANDLED, SUGGESTED_PRICES, VISIT_STEPS } from "@/lib/annexe";
+import { ADHESION, HAS_PIECE_PRICES, NOT_HANDLED, PIECE_PRICES, VISIT_STEPS } from "@/lib/annexe";
 import { ADDRESS } from "@/lib/schedule";
 
 export const metadata: Metadata = {
   title: "L'Annexe, atelier vélo participatif",
   description:
-    "Réparez vous-même votre vélo, aidé·e par l'équipe, à L'Annexe, l'atelier d'autoréparation de Tri-Marrant à Granville. Adhésion dès 10 €, pièces de seconde main à prix libre.",
+    "Réparez vous-même votre vélo, aidé·e par l'équipe, à L'Annexe, l'atelier d'autoréparation de Tri-Marrant à Granville. Adhésion annuelle dès 10 €, puis pièces de seconde main payées à l'unité.",
 };
 
-const MARQUEE = ["Ici, le mécano, c'est vous", "Entraide", "Pièces de seconde main", "Prix libre", "Réemploi"];
+const MARQUEE = ["Ici, le mécano, c'est vous", "Entraide", "Pièces de seconde main", "Pièces à l'unité", "Réemploi"];
 
 export default function AnnexePage() {
   return (
@@ -50,7 +50,7 @@ export default function AnnexePage() {
           },
           {
             question: "Combien ça coûte ?",
-            answer: "Adhésion dès 10 € par an, puis prix libre",
+            answer: "Adhésion dès 10 € par an, puis chaque pièce à l'unité",
             href: "/annexe#tarifs",
             linkLabel: "Voir les tarifs",
             icon: "coin",
@@ -129,16 +129,16 @@ export default function AnnexePage() {
             <div>
               <TextReveal
                 className="text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.04] tracking-[-0.03em]"
-                segments={[{ text: "Adhésion et prix libre" }]}
+                segments={[{ text: "Adhésion, puis pièces à l'unité" }]}
               />
               <Reveal delay={0.1}>
                 <p className="mt-6 max-w-2xl text-lg leading-relaxed">
-                  On adhère une fois par an pour accéder à l&apos;atelier, puis on participe librement à
-                  chaque passage.
+                  On adhère une fois par an pour accéder à l&apos;atelier. Ensuite, on ne paie que les
+                  pièces dont on a besoin, à l&apos;unité.
                 </p>
               </Reveal>
             </div>
-            <Stamp text="Participation libre · Selon vos moyens · " center="Prix libre" className="hidden md:block" />
+            <Stamp text="Adhésion · Pièces à l'unité · " center="À l'unité" className="hidden md:block" />
           </div>
 
           <div className="mt-14 grid gap-6 lg:grid-cols-[1.25fr_1fr]">
@@ -168,24 +168,24 @@ export default function AnnexePage() {
               </div>
             </Reveal>
 
-            {/* Prix libre */}
+            {/* Pièces à l'unité */}
             <Reveal delay={0.1} from={48}>
               <div className="flex h-full flex-col rounded-[1.75rem] bg-bleu-900 p-7 text-white sm:p-9">
                 <div className="flex items-center gap-4">
                   <span className="flex size-11 shrink-0 items-center justify-center rounded-full border-[5px] border-jaune bg-bleu font-titre text-lg font-bold text-white">
                     2
                   </span>
-                  <h3 className="text-2xl tracking-[-0.02em] text-white">Le prix libre</h3>
+                  <h3 className="text-2xl tracking-[-0.02em] text-white">Les pièces, à l&apos;unité</h3>
                 </div>
                 <p className="mt-4 text-lg leading-relaxed">
-                  L&apos;atelier vit de vos soutiens et de vos dons. Vous participez selon vos envies et
-                  vos moyens, pour que le lieu continue d&apos;exister.
+                  Une fois adhérent·e, vous ne payez que ce que vous utilisez : chaque pièce de seconde
+                  main est réglée à l&apos;unité, selon la grille tarifaire.
                 </p>
                 <ul className="mt-6 grid gap-3">
                   {[
-                    { title: "En argent", text: "Une boîte à dons vous attend à l'accueil." },
-                    { title: "En nature", text: "Un vélo, des pièces, des outils dont vous n'avez plus besoin." },
-                    { title: "En temps", text: "Rejoignez l'équipe de bénévoles." },
+                    { title: "Inclus avec l'adhésion", text: "L'accès à l'atelier, les outils et le coup de main de l'équipe." },
+                    { title: "À régler", text: "Les pièces de seconde main que vous prenez, une par une." },
+                    { title: "À apporter", text: "Les pièces neuves, achetées chez un vélociste." },
                   ].map((d, i) => (
                     <li key={d.title}>
                       <Reveal delay={0.2 + i * 0.1} from={32}>
@@ -201,25 +201,37 @@ export default function AnnexePage() {
             </Reveal>
           </div>
 
-          {/* Prix conseillés */}
+          {/* Grille tarifaire des pièces */}
           <Reveal className="mt-6">
             <div className="rounded-[1.75rem] bg-white p-7 shadow-[0_24px_60px_-40px_rgba(35,110,118,0.55)] sm:p-9">
-              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                <h3 className="text-2xl tracking-[-0.02em]">Prix conseillés des pièces de seconde main</h3>
-                <p className="text-sm font-bold text-encre/90">Pour vous donner un ordre d&apos;idée</p>
-              </div>
-              <ul className="mt-6 grid border-t-2 border-bleu-900/80 sm:grid-cols-2 sm:gap-x-12">
-                {SUGGESTED_PRICES.map((p, i) => (
-                  <li key={p.item} className="border-b border-bleu-200">
-                    <Reveal delay={0.05 * i} from={-24}>
-                      <div className="group flex items-baseline justify-between gap-4 py-3.5">
-                        <span className="transition-transform duration-300 group-hover:translate-x-1.5">{p.item}</span>
-                        <span className="font-bold whitespace-nowrap text-bleu-900 tabular-nums">{p.price}</span>
-                      </div>
-                    </Reveal>
-                  </li>
-                ))}
-              </ul>
+              <h3 className="text-2xl tracking-[-0.02em]">Grille tarifaire des pièces de seconde main</h3>
+              {HAS_PIECE_PRICES ? (
+                <ul className="mt-6 grid border-t-2 border-bleu-900/80 sm:grid-cols-2 sm:gap-x-12">
+                  {PIECE_PRICES.filter((p) => p.price !== null).map((p, i) => (
+                    <li key={p.item} className="border-b border-bleu-200">
+                      <Reveal delay={0.05 * i} from={-24}>
+                        <div className="group flex items-baseline justify-between gap-4 py-3.5">
+                          <span className="transition-transform duration-300 group-hover:translate-x-1.5">{p.item}</span>
+                          <span className="font-bold whitespace-nowrap text-bleu-900 tabular-nums">{p.price}</span>
+                        </div>
+                      </Reveal>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="mt-6 flex flex-col gap-5 rounded-2xl bg-jaune-200 p-6 sm:flex-row sm:items-center sm:gap-8 sm:p-8">
+                  <span className="flex size-14 shrink-0 items-center justify-center rounded-full border-[5px] border-jaune bg-bleu font-titre text-2xl font-bold text-white">
+                    €
+                  </span>
+                  <div>
+                    <p className="font-titre text-xl font-bold text-bleu-900">La grille est en préparation</p>
+                    <p className="mt-1 leading-relaxed">
+                      Les prix de chaque pièce seront affichés ici. En attendant, l&apos;équipe vous
+                      indique le prix de chaque pièce à l&apos;atelier avant que vous la preniez.
+                    </p>
+                  </div>
+                </div>
+              )}
               <div className="mt-7 grid gap-4 sm:grid-cols-2 sm:gap-12">
                 <p className="leading-relaxed">
                   <strong className="text-bleu-900">Pièces de seconde main</strong> : récupérées sur des
